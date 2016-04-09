@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Functional programming: like Erlang but in Javascript!</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Functional programming</h1>
+					<h3>like Erlang but in Javascript!</h3>
+					<p>
+						<small>Created by <a href="http://hakim.se">Guido D'Orsi</a> / <a href="http://twitter.com/fughye">@fughye</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Perchè?</h2>
+					<ul>
+						<li>DRY</li>
+						<li>Semplicità</li>
+						<li>Testabilità</li>
+						<li>Prossimamente parleremo di Redux</li>
+					</ul>
+
+					<aside class="notes">
+						Sviluppare software senza attenersi a dei principi di design porta sempre a risultati scadenti sotto tutti i punti di vista.
+						Costi di produzione, tempi di sviluppo, User Experience, poca affidabilità del codice, poca manuntenibiltà.
+						Con questo breve talk non intendo mostrarvi che sono stato illuminato dal signore e l'unica strada giusta è programmare abbandonando completamente l'approccio
+						Object-Oriented o procedurale e passando a un funzionale puro.
+						La mia intenzione è di portarvi quella che è la mia esperienza nell'applicare principi di programmazione funzionale nel lavoro di tutti i giorni e i benefici
+						che questo comporta.
+						Inoltre è mia intenzione quella di portare prossimamente qui un talk su Redux, una libreria davvero molto semplice e interessante, che serve a gestire lo stato delle interfaccie
+						e che si basa molto sui concetti della programmazione funzionale.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Esempio: Google Maps Geocoding</h2>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+
+						</code>
+					</pre>
+
+					<aside class="notes">
+						Iniziamo subito da un esempio di vita reale.
+						Qui ho dato sfogo a tutta la mia fantasia per scrivere una classe di merda,
+						che faccia geolocalizzazione di un indirizzo e mostri i risultati, tutti belli, al nostro caro utente.
+
+						Poi però arriva il nostro capo o cliente o chicchessia e ci chiede di mostrare
+						anche una bella mappa con un marker della posizione individuata. Tutto ovviamante il prima possibile.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Esempio: Google Maps Geocoding</h2>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+
+						</code>
+					</pre>
+
+					<aside class="notes">
+						E così la nostra classe di merda, diventa ancora più di merda.
+
+						Cosa sarebbe successo se avessimo usato la testa?
+					</aside>
+				</section>
+
+				<section>
+					<h2>First class functions</h2>
+					<h3>Anche le funzioni possono viaggiare in prima classe!</h3>
+
+					<aside class="notes">
+						Passiamo adesso ad un pò di teoria.
+						Come in algebra, se le funzioni rispettano determinate condizioni, hanno tante belle propietà che ci permettono di fare le nostre fighettate.
+						Iniziamo con le funzioni di prima classe.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Esempio</h2>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+function GiveMeSomething(something) {
+  this.something = something.replace('stuff', ''));
+}
+
+//Non è fist class.
+GiveMeSomething.prototype.show = function() {
+  console.log(this.something);
+}
+
+//First class
+function showSomething(something) {
+  console.log(something.replace('stuff', ''));
+}
+						</code>
+					</pre>
+
+					<aside class="notes">
+						Le funzioni di prima classe sono funzioni che possono essere trattate come qualsiasi altro tipo di dato, e che non dipendono qundi dal contesto in cui si trovano (this).
+					</aside>
+				</section>
+
+				<section>
+					<h2>Perchè first class è meglio?</h2>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+//ugly
+ajaxCall(function(something){
+  var obj = new GiveMeSomething(something);
+
+  obj.show();
+});Spesso ci aiutano a scrivere meno codice, ci aprono la strada a nuove possiblità, sono più riusabili.
+
+//So cool!!
+ajaxCall(showSomething);
+						</code>
+					</pre>
+
+					<aside class="notes">
+						Spesso ci aiutano a scrivere meno codice, ci aprono la strada a nuove possiblità, sono più riusabili.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Pure functions</h2>
+					<h3>La felicità di sentirsi puri!</h3>
+
+					<aside class="notes">
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo steso output.
+						Utilizzando un termine che si sente molto dire ultimamente, una funzione senza side effects.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Curry</h2>
+					<h3>Non ne farete più a meno!</h3>
+				</section>
+
+				<section>
+					<h2>Coding by composing</h2>
+					<h3>Come tornare ai tempi dei Lego!</h3>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
