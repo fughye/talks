@@ -51,7 +51,7 @@
 				<section>
 					<h2>Perchè?</h2>
 					<ul>
-						<li>DRY</li>
+						<li>Facile suddivisione delle responsabilità</li>
 						<li>Semplicità</li>
 						<li>Testabilità</li>
 						<li>Prossimamente parleremo di Redux</li>
@@ -69,36 +69,26 @@
 					</aside>
 				</section>
 
-				<section>
-					<h2>Esempio: Google Maps Geocoding</h2>
-					<pre>
-						<code class="hljs" data-trim contenteditable>
-
-						</code>
-					</pre>
-
+				<section data-markdown="shitty-geocoder.md">
 					<aside class="notes">
 						Iniziamo subito da un esempio di vita reale.
 						Qui ho dato sfogo a tutta la mia fantasia per scrivere una classe di merda,
 						che faccia geolocalizzazione di un indirizzo e mostri i risultati, tutti belli, al nostro caro utente.
-
-						Poi però arriva il nostro capo o cliente o chicchessia e ci chiede di mostrare
-						anche una bella mappa con un marker della posizione individuata. Tutto ovviamante il prima possibile.
 					</aside>
 				</section>
 
 				<section>
 					<h2>Esempio: Google Maps Geocoding</h2>
-					<pre>
-						<code class="hljs" data-trim contenteditable>
-
-						</code>
-					</pre>
+					<div>
+						<input id="shitty-query-input" disabled="disabled" autofocus>
+						<input id="shitty-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
+						<div id="shitty-geocode-result"></div>
+					</div>
 
 					<aside class="notes">
-						E così la nostra classe di merda, diventa ancora più di merda.
-
-						Cosa sarebbe successo se avessimo usato la testa?
+						Poi però arriva il nostro capo o cliente o chicchessia e ci chiede di mostrare
+						tutti i risultati del geocoding.
+						E noi smadonniamo perchè dobbiamo cambiare quasi tutto, con tutti i possibli errori che ne possono conseguire.
 					</aside>
 				</section>
 
@@ -142,20 +132,27 @@ function showSomething(something) {
 					<h2>Perchè first class è meglio?</h2>
 					<pre>
 						<code class="hljs" data-trim contenteditable>
-//ugly
-ajaxCall(function(something){
-  var obj = new GiveMeSomething(something);
+//Che brutta cosa
+var _this = this;
 
-  obj.show();
-});Spesso ci aiutano a scrivere meno codice, ci aprono la strada a nuove possiblità, sono più riusabili.
+this.geocoder.geocode({
+  address: this.input.value
+}, function (results, status) {
+  _this.handleGeocodeResult(results, status);
+});
 
-//So cool!!
-ajaxCall(showSomething);
+//Già meglio
+this.geocoder.geocode({
+  address: this.input.value
+}, this.handleGeocodeResult.bind(this));
 						</code>
 					</pre>
 
 					<aside class="notes">
-						Spesso ci aiutano a scrivere meno codice, ci aprono la strada a nuove possiblità, sono più riusabili.
+						Già così iniziamo a risparmiare inutili righe di codice.
+						Immaginate a quanto sarebbe bello avere tutti i metodi del nostro Geocoder first class.
+
+						Ecco che già ci stiamo pentendo di aver utilizzato una classe per gestire il nostro geocoding.
 					</aside>
 				</section>
 
@@ -164,13 +161,135 @@ ajaxCall(showSomething);
 					<h3>La felicità di sentirsi puri!</h3>
 
 					<aside class="notes">
-						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo steso output.
-						Utilizzando un termine che si sente molto dire ultimamente, una funzione senza side effects.
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun osservabile side-effect.
+						In pratica una funzione che ad ogni chiamata è sempre vergine.
 					</aside>
 				</section>
 
 				<section>
-					<h2>Curry</h2>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+var list = [1, 2, 3, 4, 5];
+
+// pure
+list.slice(0, 3);
+//=> [1, 2, 3]
+
+list.slice(0, 3);
+//=> [1, 2, 3]
+
+// impure
+list.splice(0, 3);
+//=> [1, 2, 3]
+
+list.splice(0, 3);
+//=> [4, 5]
+						</code>
+					</pre>
+
+					<aside class="notes">
+						Prendiamo Slice e Splice. Sono due funzioni che fanno la stessa cosa, ma in modo differente.
+						Slice ogni volta che riceve lo stesso input, ritorna sempre il medesimo output, garantito.
+						Splice invece ad ogni chiamata ci taglia il nostro array mutandolo.
+
+						Questo è un brutto side-effect e questa cosa a noi amanti della programmaizone funzionale non piace.
+					</aside>
+				</section>
+
+				<section>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+// impure
+var minimum = 2000000;
+
+function sonoRicco(euro) {
+  return euro >= minimum;
+};
+
+// pure
+function sonoRicco(euro) {
+  var minimum = 2000000;
+
+  return euro >= minimum;
+};
+						</code>
+					</pre>
+
+					<aside class="notes">
+						In questo caso invece la prima funzione è impura, in quanto dipende da una variabile esterna,
+						che può cambiare nel corso del tempo influendo quindi sul risultato della funzione
+					</aside>
+				</section>
+
+				<section>
+					<h2>Sono side effects:</h2>
+					<ul>
+						<li>Mutazioni</li>
+						<li>Effettuare una chiamata http</li>
+						<li>Stampare a video oppure scrivere dei log</li>
+						<li>Lanciare una query sul DOM</li>
+						<li>Leggere l'input dell'utente</li>
+						<li>Altro ancora...</li>
+					</ul>
+
+					<aside class="notes">
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output.
+
+						E quand'è che una funzione non rispetta questa condizione?
+						Quando il risultato dipende da uno stato esterno.
+					</aside>
+				</section>
+
+				<section>
+					<pre>
+						<code class="hljs" data-trim contenteditable>
+//Quanta oscenità in un unica funzione!
+Geocoder.prototype.showAddress = function () {
+  var formattedData = this.locationData.province + ', ' +
+	this.locationData.city + ', ' + this.locationData.route;
+
+  if(this.locationData.streetNumber){
+    formattedData +=  ' ' + this.locationData.streetNumber;
+  }
+
+  this.output.textContent = formattedData;
+}
+
+//Quanto è bello essere puri!
+function formatAddress(locationData) {
+  var formattedData = locationData.province + ', ' +
+    locationData.city + ', ' + locationData.route;
+
+  if(this.locationData.streetNumber){
+    formattedData +=  ', ' + locationData.streetNumber;
+  }
+
+  return formattedData;
+}
+
+//Qui manteniamo ancora la purezza
+function showAddress(output, locationData) {
+	var formattedData = formatAddress(locationData);
+
+	//Anche se qualcuno il lavoro sporco lo deve ancora fare...
+	return function() {
+	  output.textContent = formattedData;
+	};
+}
+						</code>
+					</pre>
+
+					<aside class="notes">
+						Che ci abbiamo guadagnato?
+
+						showAddress prima aveva due responsabilità, era scocciante da testare con riusabilità zero.
+						La nuova versione si testa facilmente, non è legata al nostro vecchio oggetto
+						e possiamo farci quello che ci pare (caching).
+					</aside>
+				</section>
+
+				<section>
+					<h2>Curring</h2>
 					<h3>Non ne farete più a meno!</h3>
 				</section>
 
@@ -209,6 +328,7 @@ ajaxCall(showSomething);
 			});
 
 		</script>
-
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;client=gme-addictive&amp;channel=geocoder-tool&amp;signed_in=true&amp;libraries=places" async></script>
+		<script src="/js/shitty-geocoder.js" async></script>
 	</body>
 </html>
