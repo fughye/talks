@@ -239,13 +239,12 @@ function sonoRicco(euro) {
 				</section>
 
 				<section>
-					<h2>Sono side effects:</h2>
+					<h2>Esempi di side effects:</h2>
 					<ul>
 						<li>Mutazioni</li>
 						<li>Effettuare una chiamata http</li>
 						<li>Stampare a video oppure scrivere dei log</li>
 						<li>Lanciare una query sul DOM</li>
-						<li>Leggere l'input dell'utente</li>
 						<li>Altro ancora...</li>
 					</ul>
 
@@ -414,6 +413,23 @@ function formatAddress(locationData) {
     )
   );
 }
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+showAddress = curry(function(errorMessage, output, formattedData) {
+  if(formattedData) {
+    return function() {
+      output.textContent = formattedData;
+    };
+  } else {
+    return function() {
+      alert(errorMessage);
+    };
+  }
+});
 							</code>
 						</pre>
 					</section>

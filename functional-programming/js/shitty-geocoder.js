@@ -57,7 +57,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
         this.locationData = locationData;
         this.showAddress();
     } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        alert('Inserisci un indirizzo valido!');
     }
 };
 
@@ -72,7 +72,7 @@ Geocoder.prototype.showAddress = function () {
     this.output.textContent = formattedData;
 };
 
-function initialize(){
+function initializeGeocoder(){
     var input,
         output,
         button;
@@ -88,11 +88,11 @@ function initialize(){
             button
         );
 
-        input.disable = false;
-        button.disable = false;
+        input.disabled = false;
+        button.disabled = false;
     } else {
-        setTimeout(initialize, 500);
+        setTimeout(initializeGeocoder, 500);
     }
 }
 
-initialize();
+initializeGeocoder();
