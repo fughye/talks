@@ -49,7 +49,19 @@
 				</section>
 
 				<section>
-					<h2>Perchè?</h2>
+					<h2>Di cosa parleremo?</h2>
+					<ul>
+						<li>
+							Tecniche di programmazione funzionale
+							applicabili nel nostro quotidiano
+						</li>
+						<li>Esempi di vita reale</li>
+						<li>Unicorni volanti</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Perchè passare ad un approccio più funzionale?</h2>
 					<ul>
 						<li>Facile suddivisione delle responsabilità</li>
 						<li>Semplicità</li>
@@ -157,6 +169,11 @@ this.geocoder.geocode({
 				</section>
 
 				<section>
+					<h2>Unicorni volanti</h2>
+					<img src="large_unicorn.png">
+				</section>
+
+				<section>
 					<h2>Pure functions</h2>
 					<h3>La felicità di sentirsi puri!</h3>
 
@@ -168,7 +185,7 @@ this.geocoder.geocode({
 
 				<section>
 					<pre>
-						<code class="hljs" data-trim contenteditable>
+						<code class="hljs" data-trim >
 var list = [1, 2, 3, 4, 5];
 
 // pure
@@ -198,7 +215,7 @@ list.splice(0, 3);
 
 				<section>
 					<pre>
-						<code class="hljs" data-trim contenteditable>
+						<code class="hljs" data-trim >
 // impure
 var minimum = 2000000;
 
@@ -241,43 +258,49 @@ function sonoRicco(euro) {
 				</section>
 
 				<section>
-					<pre>
-						<code class="hljs" data-trim contenteditable>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
 //Quanta oscenità in un unica funzione!
 Geocoder.prototype.showAddress = function () {
   var formattedData = this.locationData.province + ', ' +
-	this.locationData.city + ', ' + this.locationData.route;
+  this.locationData.city + ', ' + this.locationData.route;
 
   if(this.locationData.streetNumber){
-    formattedData +=  ' ' + this.locationData.streetNumber;
+    formattedData += ' ' + this.locationData.streetNumber;
   }
 
   this.output.textContent = formattedData;
 }
+							</code>
+						</pre>
+					</section>
 
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
 //Quanto è bello essere puri!
 function formatAddress(locationData) {
   var formattedData = locationData.province + ', ' +
-    locationData.city + ', ' + locationData.route;
+  locationData.city + ', ' + locationData.route;
 
   if(this.locationData.streetNumber){
-    formattedData +=  ', ' + locationData.streetNumber;
+    formattedData += ', ' + locationData.streetNumber;
   }
 
   return formattedData;
 }
 
 //Qui manteniamo ancora la purezza
-function showAddress(output, locationData) {
-	var formattedData = formatAddress(locationData);
-
-	//Anche se qualcuno il lavoro sporco lo deve ancora fare...
-	return function() {
-	  output.textContent = formattedData;
-	};
+function showAddress(output, formattedData) {
+  //Anche se qualcuno il lavoro sporco lo deve ancora fare
+  return function() {
+    output.textContent = formattedData;
+  };
 }
-						</code>
-					</pre>
+							</code>
+						</pre>
+					</section>
 
 					<aside class="notes">
 						Che ci abbiamo guadagnato?
@@ -289,13 +312,199 @@ function showAddress(output, locationData) {
 				</section>
 
 				<section>
-					<h2>Curring</h2>
-					<h3>Non ne farete più a meno!</h3>
+					<h2>Currying</h2>
+
+					<aside class="notes">
+						Il concetto di currying è semplice. Puoi passare una funzione meno parametri di quanti ne aspetta.
+						Questa ritornerà una nuova funzione che prenderà in input i restanti parametri.
+					</aside>
+				</section>
+
+				<section>
+					<pre>
+						<code class="hljs" data-trim>
+var curry = require('lodash/curry');
+
+var match = curry(function (what, str){
+  return str.match(what);
+});
+
+var hasSpaces = replace(/\s/g);
+
+hasSpaces('Ciao a tuttii');
+//true
+						</code>
+					</pre>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<pre>
+						<code class="hljs" data-trim>
+var match = function (what, str){
+  return str.match(what);
+};
+
+var hasSpaces = replace.bind(undefined, /\s/g);
+
+hasSpaces('Ciao a tuttii');
+//true
+						</code>
+					</pre>
+
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+function formatAddress(locationData) {
+  var formattedData = locationData.province + ', ' +
+    locationData.city + ', ' + locationData.route;
+
+  if(this.locationData.streetNumber){
+    formattedData += ', ' + locationData.streetNumber;
+  }
+
+  return formattedData;
+}
+							</code>
+						</pre>
+
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+var join =  curry(function (glue, array) {
+  return array.join(glue);
+});
+
+var filter = curry(function (predicate, array) {
+  return array.filter(predicate);
+});
+
+function isTruthy(value) {
+  return !!value;
+}
+
+var joinWithComma = join(', ');
+var filterInvalid = filter(isTruthy);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+function locationDataToArray(locationData){
+  return [
+    locationData.province,
+    locationData.city,
+    locationData.route,
+    locationData.streetNumber
+  ];
+}
+function formatAddress(locationData) {
+  return joinWithComma(
+    filterInvalid(
+      locationDataToArray(locationData)
+    )
+  );
+}
+							</code>
+						</pre>
+					</section>
 				</section>
 
 				<section>
 					<h2>Coding by composing</h2>
 					<h3>Come tornare ai tempi dei Lego!</h3>
+				</section>
+
+				<section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+Geocoder.prototype.handleGeocodeResult = function (results, status) {
+  var locationData = {},
+  addressComponents, i, l;
+
+  if (
+    results &&
+    results.length > 0 &&
+    status == google.maps.GeocoderStatus.OK
+  ) {
+    addressComponents = results[0]['address_components'];
+
+    for(i = 0, l = addressComponents.length; i < l; i++){
+      switch(addressComponents[i].types[0]){
+        case 'administrative_area_level_2':
+          locationData.province = addressComponents[i].short_name;
+          break;
+        case 'administrative_area_level_3':
+          locationData.city = addressComponents[i].long_name;
+          break;
+        case 'route':
+          locationData.route = addressComponents[i].long_name;
+          break;
+        case 'street_number':
+          locationData.streetNumber = addressComponents[i].long_name;
+          break;
+      }
+    }
+    this.locationData = locationData;
+    this.showAddress();
+  } else {
+    alert("Geocode was not successful for the following reason: " + status);
+  }
+};
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+function transformAddressComponents(addressComponents) {
+  return addressComponents.reduce(function(res, component) {
+    switch(component.types[0]){
+      case 'administrative_area_level_2':
+        res.province = component.short_name;
+        break;
+      case 'administrative_area_level_3':
+        res.city = component.long_name;
+        break;
+      case 'route':
+        res.route = component.long_name;
+        break;
+      case 'street_number':
+        res.streetNumber = component.long_name;
+        break;
+    }
+    return locationData;
+  }, {});
+}
+
+function validGeocodeResponse(results, status) {
+  return results && results.length > 0 && status == google.maps.GeocoderStatus.OK;
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+function handleGeocodeResult(results, status) {
+  return validGeocodeResponse(results, status)) &&
+    results[0]['address_components'] || [];
+}
+
+transformAddressComponents(handleGeocodeResult(results, status));
+							</code>
+						</pre>
+					</section>
 				</section>
 			</div>
 
