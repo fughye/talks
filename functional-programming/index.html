@@ -49,13 +49,15 @@
 				</section>
 
 				<section>
-					<h2>Di cosa parleremo?</h2>
+					<h2>Di che tratta questo "breve" talk?</h2>
 					<ul>
 						<li>
 							Tecniche di programmazione funzionale
 							applicabili nel nostro quotidiano
 						</li>
-						<li>Esempi di vita reale</li>
+						<li>
+							Esempi presi dalla vita reale
+						</li>
 						<li>Unicorni volanti</li>
 					</ul>
 				</section>
@@ -81,7 +83,98 @@
 					</aside>
 				</section>
 
-				<section data-markdown="shitty-geocoder.md">
+                                <section>
+		                        <section>
+						<h2>Esempio: Google Maps Geocoding</h2>
+						<pre>
+							<code class="hljs" data-trim>
+function Geocoder(input, output, button) {
+    var _this = this;
+
+    this.input = input;
+    this.output = output;
+    this.geocoder = new google.maps.Geocoder();
+
+    button.addEventListener('click', function () {
+        _this.geocodeAddress();
+    });
+}
+							</code>
+						</pre>
+					</section>
+		                        <section>
+						<h2>Esempio: Google Maps Geocoding</h2>
+						<pre>
+							<code class="hljs" data-trim>
+Geocoder.prototype.geocodeAddress = function () {
+    var _this = this;
+
+    this.geocoder.geocode({
+        address: this.input.value
+    }, function (results, status) {
+        _this.handleGeocodeResult(results, status);
+    });
+};
+							</code>
+						</pre>
+					</section>
+		                        <section>
+						<h2>Esempio: Google Maps Geocoding</h2>
+						<pre>
+							<code class="hljs" data-trim>
+Geocoder.prototype.handleGeocodeResult = function (results, status) {
+    var location = {},
+        components, i, l;
+
+    if (
+        results &&
+        results.length > 0 &&
+        status == google.maps.GeocoderStatus.OK
+    ) {
+        components = results[0]['address_components'];
+
+        for(i = 0, l = addressComponents.length; i < l; i++){
+            switch(addressComponents[i].types[0]){
+                case 'administrative_area_level_2':
+                    location.province = components[i].short_name;
+                    break;
+                case 'administrative_area_level_3':
+                    location.city = components[i].long_name;
+                    break;
+                case 'route':
+                    location.route = components[i].long_name;
+                    break;
+                case 'street_number':
+                    location.streetNumber = components[i].long_name;
+                    break;
+            }
+        }
+        this.locationData = location;
+        this.showAddress();
+    } else {
+        alert("Geocode was not successful for the following reason: " + status);
+    }
+};
+							</code>
+						</pre>
+					</section>
+		                        <section>
+						<h2>Esempio: Google Maps Geocoding</h2>
+						<pre>
+							<code class="hljs" data-trim>
+Geocoder.prototype.showAddress = function () {
+    var formattedData = this.locationData.province + ', ' +
+        this.locationData.city + ', ' + this.locationData.route;
+
+    if(this.locationData.streetNumber){
+        formattedData +=  ', ' + this.locationData.streetNumber;
+    }
+
+    this.output.textContent = formattedData;
+};
+							</code>
+						</pre>
+					</section>
 					<aside class="notes">
 						Iniziamo subito da un esempio di vita reale.
 						Qui ho dato sfogo a tutta la mia fantasia per scrivere una classe di merda,
@@ -118,7 +211,7 @@
 				<section>
 					<h2>Esempio</h2>
 					<pre>
-						<code class="hljs" data-trim contenteditable>
+						<code class="hljs" data-trim>
 function GiveMeSomething(something) {
   this.something = something.replace('stuff', ''));
 }
@@ -143,7 +236,7 @@ function showSomething(something) {
 				<section>
 					<h2>Perchè first class è meglio?</h2>
 					<pre>
-						<code class="hljs" data-trim contenteditable>
+						<code class="hljs" data-trim>
 //Che brutta cosa
 var _this = this;
 
@@ -266,7 +359,7 @@ Geocoder.prototype.showAddress = function () {
   this.locationData.city + ', ' + this.locationData.route;
 
   if(this.locationData.streetNumber){
-    formattedData += ' ' + this.locationData.streetNumber;
+    formattedData += ', ' + this.locationData.streetNumber;
   }
 
   this.output.textContent = formattedData;
@@ -290,6 +383,13 @@ function formatAddress(locationData) {
   return formattedData;
 }
 
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
 //Qui manteniamo ancora la purezza
 function showAddress(output, formattedData) {
   //Anche se qualcuno il lavoro sporco lo deve ancora fare
@@ -300,6 +400,7 @@ function showAddress(output, formattedData) {
 							</code>
 						</pre>
 					</section>
+
 
 					<aside class="notes">
 						Che ci abbiamo guadagnato?
@@ -446,7 +547,7 @@ showAddress = curry(function(errorMessage, output, formattedData) {
 							<code class="hljs" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
   var locationData = {},
-  addressComponents, i, l;
+    addressComponents, i, l;
 
   if (
     results &&
