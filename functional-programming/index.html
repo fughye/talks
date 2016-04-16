@@ -118,7 +118,7 @@ Geocoder.prototype.geocodeAddress = function () {
 		                        <section>
 						<h2>Caso d'uso: Google Maps Geocoding</h2>
 						<pre>
-							<code class="hljs" data-trim>
+							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
     var location = {},
         components, i, l;
@@ -540,7 +540,7 @@ var formatAddress = compose(
 				<section>
 					<section>
 						<pre>
-							<code class="hljs" data-trim>
+							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
   var locationData = {},
     addressComponents, i, l;
@@ -603,7 +603,7 @@ getAddressComponents = compose(
 					</section>
 					<section>
 						<pre>
-							<code class="hljs" data-trim>
+							<code class="hljs small-font" data-trim>
 var reduce = require('lodash/collection/reduce');
 
 function transformAddressComponents(addressComponents) {
@@ -643,8 +643,8 @@ var formatGeocodeResponse = compose(
 					</section>
 					<section>
 						<pre>
-							<code class="hljs" data-trim>
-showAddress = curry(function(errorMessage, output, formattedData) {
+							<code class="hljs small-font" data-trim>
+var showAddress = curry(function(errorMessage, output, formattedData) {
   if(formattedData) {
       output.textContent = formattedData;
   } else {
