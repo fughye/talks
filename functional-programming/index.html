@@ -49,22 +49,9 @@
 				</section>
 
 				<section>
-					<h2>Di che tratta questo "breve" talk?</h2>
+					<h2>Why?</h2>
 					<ul>
-						<li>
-							Tecniche di programmazione funzionale
-							applicabili nel nostro quotidiano
-						</li>
-						<li>
-							Esempi presi dalla vita reale
-						</li>
-						<li>Unicorni volanti</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Perchè passare ad un approccio più funzionale?</h2>
-					<ul>
+						<li>Estremo riuso del codice</li>
 						<li>Facile suddivisione delle responsabilità</li>
 						<li>Semplicità</li>
 						<li>Testabilità</li>
@@ -76,16 +63,26 @@
 						Costi di produzione, tempi di sviluppo, User Experience, poca affidabilità del codice, poca manuntenibiltà.
 						Con questo breve talk non intendo mostrarvi che sono stato illuminato dal signore e l'unica strada giusta è programmare abbandonando completamente l'approccio
 						Object-Oriented o procedurale e passando a un funzionale puro.
-						La mia intenzione è di portarvi quella che è la mia esperienza nell'applicare principi di programmazione funzionale nel lavoro di tutti i giorni e i benefici
+						La mia intenzione è di portarvi quella che è la mia esperienza nell'applicare principi di programmazione funzionale nel mio lavoro quotidiano e i benefici
 						che questo comporta.
-						Inoltre è mia intenzione quella di portare prossimamente qui un talk su Redux, una libreria davvero molto semplice e interessante, che serve a gestire lo stato delle interfaccie
+						Inoltre è mia intenzione quella di portare prossimamente qui un talk su Redux, una libreria davvero molto semplice e interessante, che serve a gestire lo stato delle interfacce
 						e che si basa molto sui concetti della programmazione funzionale.
 					</aside>
 				</section>
 
-                                <section>
-		                        <section>
-						<h2>Esempio: Google Maps Geocoding</h2>
+				<section>
+					<h2>Di cosa parleremo?</h2>
+					<ul>
+						<li>First class functions</li>
+						<li>Pure functions</li>
+						<li>Currying</li>
+						<li>Composition</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Caso d'uso: Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 function Geocoder(input, output, button) {
@@ -103,7 +100,7 @@ function Geocoder(input, output, button) {
 						</pre>
 					</section>
 		                        <section>
-						<h2>Esempio: Google Maps Geocoding</h2>
+						<h2>Caso d'uso: Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 Geocoder.prototype.geocodeAddress = function () {
@@ -119,7 +116,7 @@ Geocoder.prototype.geocodeAddress = function () {
 						</pre>
 					</section>
 		                        <section>
-						<h2>Esempio: Google Maps Geocoding</h2>
+						<h2>Caso d'uso: Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
@@ -152,7 +149,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
         this.locationData = location;
         this.showAddress();
     } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        alert('Inserisci un indirizzo valido!');
     }
 };
 							</code>
@@ -209,61 +206,58 @@ Geocoder.prototype.showAddress = function () {
 				</section>
 
 				<section>
+          <section>
+            <h2>Esempio</h2>
+            <pre>
+              <code class="hljs" data-trim>
+function LoudSomething() {
+}
+
+LoudSomething.prototype.loud = function loud(somwthing) {
+  this.something = something.toUpperCase());
+};
+
+LoudSomething.prototype.show = function() {
+  console.log(this.something);
+}
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h2>Esempio</h2>
+            <pre>
+              <code class="hljs" data-trim>
+  //First class
+function loud(somwthing) {
+  return something.toUpperCase());
+}
+
+function logSomething(something) {
+  console.log(something);
+}
+
+function loudAndShow(something) {
+  logSomething(loud(something));
+}
+              </code>
+            </pre>
+          </section>
+				</section>
+
+				<section>
 					<h2>Esempio</h2>
 					<pre>
 						<code class="hljs" data-trim>
-function GiveMeSomething(something) {
-  this.something = something.replace('stuff', ''));
-}
+var loudSomething = new LoudSomething();
 
-//Non è fist class.
-GiveMeSomething.prototype.show = function() {
-  console.log(this.something);
-}
+getServerStuff(function (something) {
+  loudSomething.loud(something);
+  loudSomething.show();
+})
 
-//First class
-function showSomething(something) {
-  console.log(something.replace('stuff', ''));
-}
+getServerStuff(loudAndShow);
 						</code>
 					</pre>
-
-					<aside class="notes">
-						Le funzioni di prima classe sono funzioni che possono essere trattate come qualsiasi altro tipo di dato, e che non dipendono qundi dal contesto in cui si trovano (this).
-					</aside>
-				</section>
-
-				<section>
-					<h2>Perchè first class è meglio?</h2>
-					<pre>
-						<code class="hljs" data-trim>
-//Che brutta cosa
-var _this = this;
-
-this.geocoder.geocode({
-  address: this.input.value
-}, function (results, status) {
-  _this.handleGeocodeResult(results, status);
-});
-
-//Già meglio
-this.geocoder.geocode({
-  address: this.input.value
-}, this.handleGeocodeResult.bind(this));
-						</code>
-					</pre>
-
-					<aside class="notes">
-						Già così iniziamo a risparmiare inutili righe di codice.
-						Immaginate a quanto sarebbe bello avere tutti i metodi del nostro Geocoder first class.
-
-						Ecco che già ci stiamo pentendo di aver utilizzato una classe per gestire il nostro geocoding.
-					</aside>
-				</section>
-
-				<section>
-					<h2>Unicorni volanti</h2>
-					<img src="large_unicorn.png">
 				</section>
 
 				<section>
@@ -277,66 +271,11 @@ this.geocoder.geocode({
 				</section>
 
 				<section>
-					<pre>
-						<code class="hljs" data-trim >
-var list = [1, 2, 3, 4, 5];
-
-// pure
-list.slice(0, 3);
-//=> [1, 2, 3]
-
-list.slice(0, 3);
-//=> [1, 2, 3]
-
-// impure
-list.splice(0, 3);
-//=> [1, 2, 3]
-
-list.splice(0, 3);
-//=> [4, 5]
-						</code>
-					</pre>
-
-					<aside class="notes">
-						Prendiamo Slice e Splice. Sono due funzioni che fanno la stessa cosa, ma in modo differente.
-						Slice ogni volta che riceve lo stesso input, ritorna sempre il medesimo output, garantito.
-						Splice invece ad ogni chiamata ci taglia il nostro array mutandolo.
-
-						Questo è un brutto side-effect e questa cosa a noi amanti della programmaizone funzionale non piace.
-					</aside>
-				</section>
-
-				<section>
-					<pre>
-						<code class="hljs" data-trim >
-// impure
-var minimum = 2000000;
-
-function sonoRicco(euro) {
-  return euro >= minimum;
-};
-
-// pure
-function sonoRicco(euro) {
-  var minimum = 2000000;
-
-  return euro >= minimum;
-};
-						</code>
-					</pre>
-
-					<aside class="notes">
-						In questo caso invece la prima funzione è impura, in quanto dipende da una variabile esterna,
-						che può cambiare nel corso del tempo influendo quindi sul risultato della funzione
-					</aside>
-				</section>
-
-				<section>
 					<h2>Esempi di side effects:</h2>
 					<ul>
-						<li>Mutazioni</li>
-						<li>Effettuare una chiamata http</li>
-						<li>Stampare a video oppure scrivere dei log</li>
+						<li>Mutazioni di oggetti</li>
+						<li>Effettuare chiamate http</li>
+						<li>Scrivere dei log</li>
 						<li>Lanciare una query sul DOM</li>
 						<li>Altro ancora...</li>
 					</ul>
@@ -350,10 +289,52 @@ function sonoRicco(euro) {
 				</section>
 
 				<section>
+          <section>
+            <pre>
+              <code class="hljs" data-trim >
+var minimum = 2000000;
+
+function sonoRicco(euro) {
+  return euro >= minimum;
+};
+
+function sonoRicco(euro) {
+  var minimum = 2000000;
+
+  return euro >= minimum;
+};
+              </code>
+            </pre>
+
+            <aside class="notes">
+              In questo caso invece la prima funzione è impura, in quanto dipende da una variabile esterna,
+              che può cambiare nel corso del tempo influendo quindi sul risultato della funzione
+            </aside>
+				  </section>
+          <section>
+					<pre>
+						<code class="hljs" data-trim >
+var config = Object.freeze({
+  minimum: 2000000
+});
+
+function sonoRicco(euro) {
+  return euro >= config.minimum;
+};
+						</code>
+					</pre>
+
+					<aside class="notes">
+						In questo caso invece la prima funzione è impura, in quanto dipende da una variabile esterna,
+						che può cambiare nel corso del tempo influendo quindi sul risultato della funzione
+					</aside>
+				</section>
+				</section>
+
+				<section>
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-//Quanta oscenità in un unica funzione!
 Geocoder.prototype.showAddress = function () {
   var formattedData = this.locationData.province + ', ' +
   this.locationData.city + ', ' + this.locationData.route;
@@ -376,7 +357,7 @@ function formatAddress(locationData) {
   var formattedData = locationData.province + ', ' +
   locationData.city + ', ' + locationData.route;
 
-  if(this.locationData.streetNumber){
+  if(locationData.streetNumber){
     formattedData += ', ' + locationData.streetNumber;
   }
 
@@ -412,6 +393,17 @@ function showAddress(output, formattedData) {
 				</section>
 
 				<section>
+					<h2>
+            Cosa ci guadagnamo a rendere le nostre funzioni pure?
+          </h2>
+					<ul>
+						<li>Prevedibilità</li>
+						<li>Riusabilità</li>
+						<li>Testabilità</li>
+					</ul>
+				</section>
+
+				<section>
 					<h2>Currying</h2>
 
 					<aside class="notes">
@@ -425,32 +417,29 @@ function showAddress(output, formattedData) {
 						<code class="hljs" data-trim>
 var curry = require('lodash/curry');
 
-var match = curry(function (what, str){
-  return str.match(what);
+var join =  curry(function (glue, array) {
+  return array.join(glue);
 });
 
-var hasSpaces = replace(/\s/g);
+var joinWithComma = join(', ');
 
-hasSpaces('Ciao a tuttii');
-//true
+joinWithComma(['RM', 'Rome']);
+//Rm, Rome
 						</code>
 					</pre>
-
-					<aside class="notes">
-					</aside>
 				</section>
 
 				<section>
 					<pre>
 						<code class="hljs" data-trim>
-var match = function (what, str){
-  return str.match(what);
+function join(glue, array) {
+  return array.join(glue);
 };
 
-var hasSpaces = replace.bind(undefined, /\s/g);
+var joinWithComma = join.bind(null, ', ');
 
-hasSpaces('Ciao a tuttii');
-//true
+joinWithComma(['RM', 'Rome']);
+//Rm, Rome
 						</code>
 					</pre>
 
@@ -479,10 +468,6 @@ function formatAddress(locationData) {
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-var join =  curry(function (glue, array) {
-  return array.join(glue);
-});
-
 var filter = curry(function (predicate, array) {
   return array.filter(predicate);
 });
@@ -491,7 +476,6 @@ function isTruthy(value) {
   return !!value;
 }
 
-var joinWithComma = join(', ');
 var filterInvalid = filter(isTruthy);
 							</code>
 						</pre>
@@ -517,28 +501,40 @@ function formatAddress(locationData) {
 							</code>
 						</pre>
 					</section>
-					<section>
-						<pre>
+        </section>
+
+				<section>
+					<h2>Coding by composing</h2>
+          <pre>
 							<code class="hljs" data-trim>
-showAddress = curry(function(errorMessage, output, formattedData) {
-  if(formattedData) {
-    return function() {
-      output.textContent = formattedData;
-    };
-  } else {
-    return function() {
-      alert(errorMessage);
-    };
-  }
-});
-							</code>
-						</pre>
-					</section>
+function compose(f, g) {
+  return function(x) {
+    return f(g(x));
+  };
+};
+            </code>
+          </pre>
 				</section>
 
 				<section>
 					<h2>Coding by composing</h2>
-					<h3>Come tornare ai tempi dei Lego!</h3>
+          <pre>
+							<code class="hljs" data-trim>
+function formatAddress(locationData) {
+  return joinWithComma(
+    filterInvalid(
+      locationDataToArray(locationData)
+    )
+  );
+}
+
+var formatAddress = compose(
+  joinWithComma,
+  filterInvalid,
+  locationDataToArray
+);
+            </code>
+          </pre>
 				</section>
 
 				<section>
@@ -575,7 +571,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
     this.locationData = locationData;
     this.showAddress();
   } else {
-    alert("Geocode was not successful for the following reason: " + status);
+    alert('Inserisci un indirizzo valido!');
   }
 };
 							</code>
@@ -584,8 +580,34 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
+//Ritorna i risultati solo se lo stato è valido
+function validGeocodeResponse(results, status) {
+  return status == google.maps.GeocoderStatus.OK && results;
+}
+
+getProperty = curry(function (propName, obj) {
+  return obj && obj[propName];
+});
+
+function first(array) {
+ return array && array[0];
+}
+
+getAddressComponents = compose(
+  getProperty('addressComponents'),
+  first,
+  validGeocodeResponse
+);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+var reduce = require('lodash/collection/reduce');
+
 function transformAddressComponents(addressComponents) {
-  return addressComponents.reduce(function(res, component) {
+  return reduce(addressComponents, function(res, component) {
     switch(component.types[0]){
       case 'administrative_area_level_2':
         res.province = component.short_name;
@@ -603,23 +625,64 @@ function transformAddressComponents(addressComponents) {
     return locationData;
   }, {});
 }
-
-function validGeocodeResponse(results, status) {
-  return results && results.length > 0 && status == google.maps.GeocoderStatus.OK;
-}
 							</code>
 						</pre>
 					</section>
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-function handleGeocodeResult(results, status) {
-  return validGeocodeResponse(results, status)) &&
-    results[0]['address_components'] || [];
-}
-
-transformAddressComponents(handleGeocodeResult(results, status));
+var formatGeocodeResponse = compose(
+  formatAddress,
+  transformAddressComponents,
+  getProperty('addressComponents'),
+  first,
+  validGeocodeResponse
+);
 							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+showAddress = curry(function(errorMessage, output, formattedData) {
+  if(formattedData) {
+      output.textContent = formattedData;
+  } else {
+      alert(errorMessage);
+  }
+});
+              </code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+var geocode = curry(geocode(geocoder, output, address) {
+  geocoder.geocode({
+        address: address
+  }, compose(
+    showAddress('Inserisci un indirizzo valido!', output),
+    formatGeocodeResponse
+  ));
+})
+              </code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code class="hljs" data-trim>
+var getValue = getProperty('value');
+
+function manageAddressGeocoding(input, output, button){
+  var geocodeOnOutput = geocode(
+     new google.maps.Geocoder(),
+     output
+  )
+  button.addEventListener('click', function() {
+    geocodeOnOutput(input.value);
+  }
+}
+              </code>
 						</pre>
 					</section>
 				</section>
