@@ -81,8 +81,21 @@
 				</section>
 
 				<section>
+          <section>
+						<h2>Il nostro caso d'uso</h2>
+						<h3>Google maps geocoding</h3>
+						<p>
+              Immaginiamo di dover sviluppare un componente
+              che dato un indirizzo inserito dall'utente
+              ne verifica l'esistenza e mostra il risultato geolocalizzato
+              formattato con:
+              <p>
+                Provincia, Città, Indirizzo, Numero civico
+              </p>
+            </p>
+					</section>
 					<section>
-						<h2>Caso d'uso: Google Maps Geocoding</h2>
+						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 function Geocoder(input, output, button) {
@@ -99,8 +112,8 @@ function Geocoder(input, output, button) {
 							</code>
 						</pre>
 					</section>
-		                        <section>
-						<h2>Caso d'uso: Google Maps Geocoding</h2>
+          <section>
+						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 Geocoder.prototype.geocodeAddress = function () {
@@ -115,8 +128,8 @@ Geocoder.prototype.geocodeAddress = function () {
 							</code>
 						</pre>
 					</section>
-		                        <section>
-						<h2>Caso d'uso: Google Maps Geocoding</h2>
+          <section>
+						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
@@ -156,7 +169,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 						</pre>
 					</section>
 		                        <section>
-						<h2>Esempio: Google Maps Geocoding</h2>
+						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
 Geocoder.prototype.showAddress = function () {
@@ -180,7 +193,7 @@ Geocoder.prototype.showAddress = function () {
 				</section>
 
 				<section>
-					<h2>Esempio: Google Maps Geocoding</h2>
+					<h2>Google Maps Geocoding</h2>
 					<div>
 						<input id="shitty-query-input" disabled="disabled" autofocus>
 						<input id="shitty-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
@@ -198,6 +211,12 @@ Geocoder.prototype.showAddress = function () {
 					<h2>First class functions</h2>
 					<h3>Anche le funzioni possono viaggiare in prima classe!</h3>
 
+          <pre>
+							<code class="hljs" data-trim>
+iNeedACallback(firstClass);
+							</code>
+						</pre>
+
 					<aside class="notes">
 						Passiamo adesso ad un pò di teoria.
 						Come in algebra, se le funzioni rispettano determinate condizioni, hanno tante belle propietà che ci permettono di fare le nostre fighettate.
@@ -205,72 +224,59 @@ Geocoder.prototype.showAddress = function () {
 					</aside>
 				</section>
 
-				<section>
           <section>
-            <h2>Esempio</h2>
+            <h2>Array slice</h2>
             <pre>
               <code class="hljs" data-trim>
-function LoudSomething() {
+function iNeedArgs() {
+  return Array.prototype.slice.call(arguments, 1);
 }
 
-LoudSomething.prototype.loud = function loud(somwthing) {
-  this.something = something.toUpperCase());
-};
+//First class
+var slice = Array.prototype.slice;
 
-LoudSomething.prototype.show = function() {
-  console.log(this.something);
+function firstClassSlice(array, from, to) {
+  return slice.call(array, from, to);
+}
+
+function iNeedArgs() {
+  return firstClassSlice(arguments, 1);
 }
               </code>
             </pre>
           </section>
-          <section>
-            <h2>Esempio</h2>
-            <pre>
-              <code class="hljs" data-trim>
-  //First class
-function loud(somwthing) {
-  return something.toUpperCase());
-}
 
-function logSomething(something) {
-  console.log(something);
-}
-
-function loudAndShow(something) {
-  logSomething(loud(something));
-}
-              </code>
-            </pre>
-          </section>
-				</section>
-
-				<section>
-					<h2>Esempio</h2>
-					<pre>
-						<code class="hljs" data-trim>
-var loudSomething = new LoudSomething();
-
-getServerStuff(function (something) {
-  loudSomething.loud(something);
-  loudSomething.show();
-})
-
-getServerStuff(loudAndShow);
-						</code>
-					</pre>
-				</section>
-
-				<section>
+				<section data-background="#dddddd">
 					<h2>Pure functions</h2>
 					<h3>La felicità di sentirsi puri!</h3>
 
 					<aside class="notes">
-						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun osservabile side-effect.
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
 						In pratica una funzione che ad ogni chiamata è sempre vergine.
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="#dddddd">
+					<h2>Pure functions</h2>
+					<p>
+           A pure function is a function that, given the same input, will always return the same output and does not have any observable side effect.
+          </p>
+          <p>
+            <div style="text-align: right; font-size: 70%;">
+                Professor Fisby's mostly adequate
+            </div>
+            <div style="text-align: right; font-size: 70%;">
+                guide to funcitonal programming.
+            </div>
+          </p>
+
+					<aside class="notes">
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
+						In pratica una funzione che ad ogni chiamata è sempre vergine.
+					</aside>
+				</section>
+
+				<section data-background="#dddddd">
 					<h2>Esempi di side effects:</h2>
 					<ul>
 						<li>Mutazioni di oggetti</li>
@@ -292,15 +298,10 @@ getServerStuff(loudAndShow);
           <section>
             <pre>
               <code class="hljs" data-trim >
+//impure
 var minimum = 2000000;
 
 function sonoRicco(euro) {
-  return euro >= minimum;
-};
-
-function sonoRicco(euro) {
-  var minimum = 2000000;
-
   return euro >= minimum;
 };
               </code>
@@ -314,6 +315,13 @@ function sonoRicco(euro) {
           <section>
 					<pre>
 						<code class="hljs" data-trim >
+function sonoRicco(euro) {
+  var minimum = 2000000;
+
+  return euro >= minimum;
+};
+
+//oppure
 var config = Object.freeze({
   minimum: 2000000
 });
@@ -406,6 +414,15 @@ function showAddress(output, formattedData) {
 				<section>
 					<h2>Currying</h2>
 
+          <pre>
+							<code class="hljs" data-trim>
+var partial = curried(a, b);
+
+//Execution
+partial(c);
+							</code>
+						</pre>
+
 					<aside class="notes">
 						Il concetto di currying è semplice. Puoi passare una funzione meno parametri di quanti ne aspetta.
 						Questa ritornerà una nuova funzione che prenderà in input i restanti parametri.
@@ -413,6 +430,7 @@ function showAddress(output, formattedData) {
 				</section>
 
 				<section>
+          <h3>Currying con lodash</h3>
 					<pre>
 						<code class="hljs" data-trim>
 var curry = require('lodash/curry');
@@ -430,6 +448,7 @@ joinWithComma(['RM', 'Rome']);
 				</section>
 
 				<section>
+          <h3>Currying con bind</h3>
 					<pre>
 						<code class="hljs" data-trim>
 function join(glue, array) {
@@ -461,9 +480,30 @@ function formatAddress(locationData) {
 
   return formattedData;
 }
+
 							</code>
 						</pre>
 
+					</section>
+          <section>
+						<pre>
+							<code class="hljs" data-trim>
+function locationDataToArray(locationData){
+  return [
+    locationData.province,
+    locationData.city,
+    locationData.route,
+    locationData.streetNumber
+  ];
+}
+
+function formatAddress(locationData) {
+  return joinWithComma(
+    locationDataToArray(locationData)
+  );
+}
+							</code>
+						</pre>
 					</section>
 					<section>
 						<pre>
@@ -483,14 +523,6 @@ var filterInvalid = filter(isTruthy);
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-function locationDataToArray(locationData){
-  return [
-    locationData.province,
-    locationData.city,
-    locationData.route,
-    locationData.streetNumber
-  ];
-}
 function formatAddress(locationData) {
   return joinWithComma(
     filterInvalid(
