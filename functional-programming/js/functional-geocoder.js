@@ -80,8 +80,6 @@ var geocode = R.curry(function(geocoder, output, address) {
   ));
 });
 
-var getValue = getProperty('value');
-
 function manageAddressGeocoding(input, output, button){
   var geocodeOnOutput = geocode(
      new google.maps.Geocoder(),
