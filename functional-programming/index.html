@@ -233,10 +233,8 @@ function iNeedArgs() {
 }
 
 //First class
-var slice = Array.prototype.slice;
-
 function firstClassSlice(array, from, to) {
-  return slice.call(array, from, to);
+  return Array.prototype.slice.call(array, from, to);
 }
 
 function iNeedArgs() {
@@ -436,7 +434,7 @@ partial(c);
 var curry = require('lodash/curry');
 
 var join =  curry(function (glue, array) {
-  return array.join(glue);
+  return array && array.join(glue);
 });
 
 var joinWithComma = join(', ');
@@ -452,7 +450,7 @@ joinWithComma(['RM', 'Rome']);
 					<pre>
 						<code class="hljs" data-trim>
 function join(glue, array) {
-  return array.join(glue);
+  return array && array.join(glue);
 };
 
 var joinWithComma = join.bind(null, ', ');
@@ -489,12 +487,12 @@ function formatAddress(locationData) {
 						<pre>
 							<code class="hljs" data-trim>
 function locationDataToArray(locationData){
-  return [
+  return locationData && [
     locationData.province,
     locationData.city,
     locationData.route,
     locationData.streetNumber
-  ];
+  ] || [];
 }
 
 function formatAddress(locationData) {
@@ -509,7 +507,7 @@ function formatAddress(locationData) {
 						<pre>
 							<code class="hljs" data-trim>
 var filter = curry(function (predicate, array) {
-  return array.filter(predicate);
+  return array && array.filter(predicate);
 });
 
 function isTruthy(value) {
@@ -561,8 +559,8 @@ function formatAddress(locationData) {
 }
 
 var formatAddress = compose(
-  joinWithComma,
-  filterInvalid,
+  join(', '),
+  filter(isTruthy),
   locationDataToArray
 );
             </code>
@@ -612,21 +610,18 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-//Ritorna i risultati solo se lo stato è valido
 function validGeocodeResponse(results, status) {
   return status == google.maps.GeocoderStatus.OK && results;
 }
 
-getProperty = curry(function (propName, obj) {
+var getProperty = curry(function (propName, obj) {
   return obj && obj[propName];
 });
 
-function first(array) {
- return array && array[0];
-}
+var first = getProperty(0);
 
-getAddressComponents = compose(
-  getProperty('addressComponents'),
+var getAddressComponents = compose(
+  getProperty('address_components'),
   first,
   validGeocodeResponse
 );
@@ -639,7 +634,7 @@ getAddressComponents = compose(
 var reduce = require('lodash/collection/reduce');
 
 function transformAddressComponents(addressComponents) {
-  return reduce(addressComponents, function(res, component) {
+  return addressComponents && reduce(addressComponents, function(res, component) {
     switch(component.types[0]){
       case 'administrative_area_level_2':
         res.province = component.short_name;
@@ -654,7 +649,7 @@ function transformAddressComponents(addressComponents) {
         res.streetNumber = component.long_name;
         break;
     }
-    return locationData;
+    return res;
   }, {});
 }
 							</code>
@@ -666,7 +661,7 @@ function transformAddressComponents(addressComponents) {
 var formatGeocodeResponse = compose(
   formatAddress,
   transformAddressComponents,
-  getProperty('addressComponents'),
+  getProperty('address_components'),
   first,
   validGeocodeResponse
 );
@@ -689,7 +684,7 @@ var showAddress = curry(function(errorMessage, output, formattedData) {
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
-var geocode = curry(geocode(geocoder, output, address) {
+var geocode = curry(function (geocoder, output, address) {
   geocoder.geocode({
         address: address
   }, compose(
@@ -709,10 +704,10 @@ function manageAddressGeocoding(input, output, button){
   var geocodeOnOutput = geocode(
      new google.maps.Geocoder(),
      output
-  )
+  );
   button.addEventListener('click', function() {
     geocodeOnOutput(input.value);
-  }
+  });
 }
               </code>
 						</pre>
@@ -752,6 +747,8 @@ function manageAddressGeocoding(input, output, button){
 
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;client=gme-addictive&amp;channel=geocoder-tool&amp;signed_in=true&amp;libraries=places" async></script>
+		<script src="/node_modules/ramda/dist/ramda.js"></script>
 		<script src="/js/shitty-geocoder.js" async></script>
+    <script src="/js/functional-geocoder.js" async></script>
 	</body>
 </html>

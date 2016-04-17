@@ -95,4 +95,4 @@ function initializeGeocoder(){
     }
 }
 
-initializeGeocoder();
+//initializeGeocoder();
