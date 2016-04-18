@@ -23,6 +23,7 @@
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
+
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
@@ -49,14 +50,20 @@
 				</section>
 
 				<section>
-					<h2>Why?</h2>
-					<ul>
-						<li>Estremo riuso del codice</li>
-						<li>Facile suddivisione delle responsabilità</li>
-						<li>Semplicità</li>
-						<li>Testabilità</li>
-						<li>Prossimamente parleremo di Redux</li>
-					</ul>
+					<h2>I Am</h2>
+
+					<p class="fragment" data-fragment-index="0">
+						<img src="/me.jpg" style="border-radius: 100%; border: 2px white solid;">
+					</p>
+					<p class="fragment" data-fragment-index="0">
+						<span>Guido D'Orsi</span>
+					</p>
+					<p class="fragment" data-fragment-index="1">
+						<img src="/immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
+					</p>
+					<p class="fragment" data-fragment-index="2">
+						<img src="/df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
+					</p>
 
 					<aside class="notes">
 						Sviluppare software senza attenersi a dei principi di design porta sempre a risultati scadenti sotto tutti i punti di vista.
@@ -71,7 +78,7 @@
 				</section>
 
 				<section>
-					<h2>Di cosa parleremo?</h2>
+					<h2>Parleremo di:</h2>
 					<ul>
 						<li>First class functions</li>
 						<li>Pure functions</li>
@@ -81,18 +88,18 @@
 				</section>
 
 				<section>
-          <section>
-						<h2>Il nostro caso d'uso</h2>
-						<h3>Google maps geocoding</h3>
-						<p>
-              Immaginiamo di dover sviluppare un componente
-              che dato un indirizzo inserito dall'utente
-              ne verifica l'esistenza e mostra il risultato geolocalizzato
-              formattato con:
-              <p>
-                Provincia, Città, Indirizzo, Numero civico
-              </p>
-            </p>
+					<section>
+							<h2>Il nostro caso d'uso</h2>
+							<h3>Google maps geocoding</h3>
+							<p>
+							  Immaginiamo di dover sviluppare un componente
+							  che dato un indirizzo inserito dall'utente
+							  ne verifica l'esistenza e mostra il risultato geolocalizzato
+							  formattato con:
+							  <p>
+								Provincia, Città, Indirizzo, Numero civico
+							  </p>
+							</p>
 					</section>
 					<section>
 						<h2>Google Maps Geocoding</h2>
@@ -112,7 +119,7 @@ function Geocoder(input, output, button) {
 							</code>
 						</pre>
 					</section>
-          <section>
+          			<section>
 						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
@@ -128,7 +135,7 @@ Geocoder.prototype.geocodeAddress = function () {
 							</code>
 						</pre>
 					</section>
-          <section>
+                    <section>
 						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs small-font" data-trim>
@@ -168,7 +175,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 							</code>
 						</pre>
 					</section>
-		                        <section>
+		            <section>
 						<h2>Google Maps Geocoding</h2>
 						<pre>
 							<code class="hljs" data-trim>
@@ -185,11 +192,6 @@ Geocoder.prototype.showAddress = function () {
 							</code>
 						</pre>
 					</section>
-					<aside class="notes">
-						Iniziamo subito da un esempio di vita reale.
-						Qui ho dato sfogo a tutta la mia fantasia per scrivere una classe di merda,
-						che faccia geolocalizzazione di un indirizzo e mostri i risultati, tutti belli, al nostro caro utente.
-					</aside>
 				</section>
 
 				<section>
@@ -199,23 +201,16 @@ Geocoder.prototype.showAddress = function () {
 						<input id="shitty-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
 						<div id="shitty-geocode-result"></div>
 					</div>
-
-					<aside class="notes">
-						Poi però arriva il nostro capo o cliente o chicchessia e ci chiede di mostrare
-						tutti i risultati del geocoding.
-						E noi smadonniamo perchè dobbiamo cambiare quasi tutto, con tutti i possibli errori che ne possono conseguire.
-					</aside>
 				</section>
 
 				<section>
 					<h2>First class functions</h2>
 					<h3>Anche le funzioni possono viaggiare in prima classe!</h3>
-
-          <pre>
-							<code class="hljs" data-trim>
+                    <pre>
+					    <code class="hljs" data-trim>
 iNeedACallback(firstClass);
-							</code>
-						</pre>
+					    </code>
+					</pre>
 
 					<aside class="notes">
 						Passiamo adesso ad un pò di teoria.
@@ -244,32 +239,37 @@ function iNeedArgs() {
             </pre>
           </section>
 
+			  <section data-background="#dddddd">
+				<h2>Pure functions</h2>
+				<h3>La felicità di sentirsi puri!</h3>
+
+				<aside class="notes">
+					Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
+					In pratica una funzione che ad ogni chiamata è sempre vergine.
+				</aside>
+			  </section>
+
 				<section data-background="#dddddd">
 					<h2>Pure functions</h2>
-					<h3>La felicità di sentirsi puri!</h3>
 
-					<aside class="notes">
-						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
-						In pratica una funzione che ad ogni chiamata è sempre vergine.
-					</aside>
-				</section>
-
-				<section data-background="#dddddd">
-					<h2>Pure functions</h2>
 					<p>
-           A pure function is a function that, given the same input, will always return the same output and does not have any observable side effect.
-          </p>
-          <p>
-            <div style="text-align: right; font-size: 70%;">
-                Professor Fisby's mostly adequate
-            </div>
-            <div style="text-align: right; font-size: 70%;">
-                guide to funcitonal programming.
-            </div>
-          </p>
+						A pure function is a function that, given the same input, will always return the same output and
+						does not have any observable side effect.
+					</p>
+
+					<p>
+
+					<div style="text-align: right; font-size: 70%;">
+						Professor Fisby's mostly adequate
+					</div>
+					<div style="text-align: right; font-size: 70%;">
+						guide to funcitonal programming.
+					</div>
+					</p>
 
 					<aside class="notes">
-						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
+						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso
+						output e non ha nessun side-effect osservabile.
 						In pratica una funzione che ad ogni chiamata è sempre vergine.
 					</aside>
 				</section>
@@ -474,7 +474,7 @@ increment(10);
 					</aside>
 				</section>
 
-				<section data-background="#2E6EBA">
+				<section data-background="#65CD33">
           <h3>Currying con lodash</h3>
 					<pre>
 						<code class="hljs" data-trim>
@@ -492,7 +492,7 @@ joinWithComma(['RM', 'Rome']);
 					</pre>
 				</section>
 
-				<section>
+				<section data-background="#65CD33">
           <h3>Currying con bind</h3>
 					<pre>
 						<code class="hljs" data-trim>
@@ -511,7 +511,7 @@ joinWithComma(['RM', 'Rome']);
 					</aside>
 				</section>
 
-				<section>
+				<section data-background="#65CD33">
 					<section>
 						<pre>
 							<code class="hljs" data-trim>
@@ -580,7 +580,7 @@ function formatAddress(locationData) {
 					</section>
         </section>
 
-				<section>
+				<section data-background="#2E6EBA">
 					<h2>Coding by composing</h2>
           <pre>
 							<code class="hljs" data-trim>
@@ -593,8 +593,8 @@ function compose(f, g) {
           </pre>
 				</section>
 
-				<section>
-					<h2>Coding by composing</h2>
+				<section  data-background="#2E6EBA">
+					<h2>Meglio no?</h2>
           <pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -614,8 +614,9 @@ var formatAddress = compose(
           </pre>
 				</section>
 
-				<section>
+				<section data-background="#2E6EBA">
 					<section>
+						<h3>E adesso concludiamo</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
@@ -655,6 +656,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 						</pre>
 					</section>
 					<section>
+						<h3>Usiamo curry e composition per il check e l'estrazione dei dati</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function validGeocodeResponse(results, status) {
@@ -676,6 +678,7 @@ var getAddressComponents = compose(
 						</pre>
 					</section>
 					<section>
+						<h3>Riduciamo!</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var reduce = require('lodash/collection/reduce');
@@ -687,7 +690,8 @@ function transformAddressComponents(addressComponents) {
         res.province = component.short_name;
         break;
       case 'administrative_area_level_3':
-        res.city = component.long_name;
+        res.city = component.long_name;				<li></li>
+
         break;
       case 'route':
         res.route = component.long_name;
@@ -697,12 +701,13 @@ function transformAddressComponents(addressComponents) {
         break;
     }
     return res;
-  }, {});
+  }, {}) || {};
 }
 							</code>
 						</pre>
 					</section>
 					<section>
+						<h3>Componiamo</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var formatGeocodeResponse = compose(
@@ -716,6 +721,7 @@ var formatGeocodeResponse = compose(
 						</pre>
 					</section>
 					<section>
+						<h3>E anche se non è tutto puro</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var showAddress = curry(function(errorMessage, output, formattedData) {
@@ -729,6 +735,7 @@ var showAddress = curry(function(errorMessage, output, formattedData) {
 						</pre>
 					</section>
 					<section>
+						<h3>Il nostro geocoding</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var geocode = curry(function (geocoder, output, address) {
@@ -743,6 +750,7 @@ var geocode = curry(function (geocoder, output, address) {
 						</pre>
 					</section>
 					<section>
+						<h3>Funziona, è manutenibile, è sicuro ed è testabile!</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function manageAddressGeocoding(input, output, button){
@@ -758,6 +766,14 @@ function manageAddressGeocoding(input, output, button){
 						</pre>
 					</section>
 				</section>
+		  <section>
+			<h2>Ma quante cose ci sono di cui non vi ho parlato!</h2>
+			<ul>
+				<li>Memoizing</li>
+				<li>Immutability</li>
+				<li>Functors</li>
+			</ul>
+		  </section>
           <section>
             <img src="conclusion.jpg">
           </section>
