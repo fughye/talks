@@ -339,6 +339,10 @@ function sonoRicco(euro) {
 
 				<section>
 					<section>
+            <h3>
+              Proviamo a portare un pò di purezza
+              nel nostro modulo
+            </h3>
 						<pre>
 							<code class="hljs" data-trim>
 Geocoder.prototype.showAddress = function () {
@@ -356,9 +360,23 @@ Geocoder.prototype.showAddress = function () {
 					</section>
 
 					<section>
+						<h3>
+              Dividiamo un pò le responsabilità
+            </h3>
+            <pre>
+							<code class="hljs" data-trim>
+//Trasforma locationData in una stringa formattata
+function formatAddress(locationData) {}
+
+//Mostra la stringa formattata nel nostro elemento di output
+function showAddress(output, formattedData) {}
+							</code>
+						</pre>
+					</section>
+
+					<section>
 						<pre>
 							<code class="hljs" data-trim>
-//Quanto è bello essere puri!
 function formatAddress(locationData) {
   var formattedData = locationData.province + ', ' +
   locationData.city + ', ' + locationData.route;
@@ -375,6 +393,22 @@ function formatAddress(locationData) {
 					</section>
 
 					<section>
+            <h3>
+              Almeno abbiamo circoscritto il codice 'impuro'
+            </h3>
+						<pre>
+							<code class="hljs" data-trim>
+function showAddress(output, formattedData) {
+  output.textContent = formattedData;
+}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+            <h3>
+              Se proprio vogliamo...
+            </h3>
 						<pre>
 							<code class="hljs" data-trim>
 //Qui manteniamo ancora la purezza
