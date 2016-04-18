@@ -43,6 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Functional programming</h1>
+
 					<h3>like Erlang but in Javascript!</h3>
 					<p>
 						<small>Created by <a href="http://hakim.se">Guido D'Orsi</a> / <a href="http://twitter.com/fughye">@fughye</a></small>
@@ -78,7 +79,10 @@
 				</section>
 
 				<section>
-					<h2>Parleremo di:</h2>
+					<h2>Oggi vi parlerò di:</h2>
+					<p>
+						Programmazione funzionale con Javascript!
+					</p>
 					<ul>
 						<li>First class functions</li>
 						<li>Pure functions</li>
@@ -253,11 +257,9 @@ function iNeedArgs() {
 					<h2>Pure functions</h2>
 
 					<p>
-						A pure function is a function that, given the same input, will always return the same output and
-						does not have any observable side effect.
+						“A pure function is a function that, given the same input, will always return the same output and
+						does not have any observable side effect.”
 					</p>
-
-					<p>
 
 					<div style="text-align: right; font-size: 70%;">
 						Professor Fisby's mostly adequate
@@ -265,7 +267,6 @@ function iNeedArgs() {
 					<div style="text-align: right; font-size: 70%;">
 						guide to funcitonal programming.
 					</div>
-					</p>
 
 					<aside class="notes">
 						Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso
@@ -332,7 +333,7 @@ var config = Object.freeze({
 });
 
 function tePiaceQuestaTip(voto) {
-  return voto >= soglia && 'Si' || 'No';
+  return voto >= config.soglia && 'Si' || 'No';
 }
 						</code>
 					</pre>
@@ -441,8 +442,8 @@ function showAddress(output, formattedData) {
 
 				<section data-background="#dddddd">
 					<h2>
-            Cosa ci guadagnamo a rendere le nostre funzioni pure?
-          </h2>
+						Il vantaggio che abbiamo è chiaro:
+				    </h2>
 					<ul>
 						<li>Prevedibilità</li>
 						<li>Riusabilità</li>
@@ -450,7 +451,7 @@ function showAddress(output, formattedData) {
 					</ul>
 				</section>
 
-				<section data-background="#65CD33">
+				<section data-background="#388E3C">
 					<h2>Currying</h2>
 
           <pre>
@@ -474,7 +475,7 @@ increment(10);
 					</aside>
 				</section>
 
-				<section data-background="#65CD33">
+				<section data-background="#388E3C">
           <h3>Currying con lodash</h3>
 					<pre>
 						<code class="hljs" data-trim>
@@ -492,7 +493,7 @@ joinWithComma(['RM', 'Rome']);
 					</pre>
 				</section>
 
-				<section data-background="#65CD33">
+				<section data-background="#388E3C">
           <h3>Currying con bind</h3>
 					<pre>
 						<code class="hljs" data-trim>
@@ -511,8 +512,9 @@ joinWithComma(['RM', 'Rome']);
 					</aside>
 				</section>
 
-				<section data-background="#65CD33">
+				<section data-background="#388E3C">
 					<section>
+						<h3>Torniamo al nostro esempio</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -531,6 +533,7 @@ function formatAddress(locationData) {
 
 					</section>
           <section>
+			  <h3>E passiamo dalla concatenzaione al join</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function locationDataToArray(locationData){
@@ -551,6 +554,7 @@ function formatAddress(locationData) {
 						</pre>
 					</section>
 					<section>
+						<h3>Creiamo un filtro</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var filter = curry(function (predicate, array) {
@@ -566,6 +570,7 @@ var filterInvalid = filter(isTruthy);
 						</pre>
 					</section>
 					<section>
+						<h3>E lo applichiamo alla lista</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -597,7 +602,7 @@ function compose(f, g) {
 					<h2>Meglio no?</h2>
           <pre>
 							<code class="hljs" data-trim>
-function formatAddress(locationData) {
+function formatAddress (locationData) {
   return joinWithComma(
     filterInvalid(
       locationDataToArray(locationData)
