@@ -297,14 +297,21 @@ function iNeedArgs() {
             <pre>
               <code class="hljs" data-trim >
 //impure
-var minimum = 2000000;
+var soglia = 6;
 
-function sonoRicco(euro) {
-  return euro >= minimum;
-};
+function esempioDiMerda(voto) {
+  return voto < soglia;
+}
               </code>
             </pre>
 
+			<script>
+				var soglia = 6;
+
+				function esempioDiMerda(voto) {
+					return voto < soglia;
+				}
+			</script>
             <aside class="notes">
               In questo caso invece la prima funzione è impura, in quanto dipende da una variabile esterna,
               che può cambiare nel corso del tempo influendo quindi sul risultato della funzione
@@ -313,20 +320,20 @@ function sonoRicco(euro) {
           <section>
 					<pre>
 						<code class="hljs" data-trim >
-function sonoRicco(euro) {
-  var minimum = 2000000;
+function esempioDiMerda(voto) {
+  var soglia = 6;
 
-  return euro >= minimum;
-};
+  return voto < soglia;
+}
 
 //oppure
 var config = Object.freeze({
-  minimum: 2000000
+  soglia: 2000000
 });
 
-function sonoRicco(euro) {
-  return euro >= config.minimum;
-};
+function esempioDiMerda(voto) {
+  return voto < config.soglia;
+}
 						</code>
 					</pre>
 
@@ -448,10 +455,16 @@ function showAddress(output, formattedData) {
 
           <pre>
 							<code class="hljs" data-trim>
-var partial = curried(a, b);
+curry(function add(a, b) {
+  return a + b;
+})
+
+//Partial
+var increment = add(1);
 
 //Execution
-partial(c);
+increment(10);
+//11
 							</code>
 						</pre>
 
