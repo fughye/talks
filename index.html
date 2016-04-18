@@ -299,8 +299,8 @@ function iNeedArgs() {
 //impure
 var soglia = 6;
 
-function esempioDiMerda(voto) {
-  return voto < soglia;
+function tePiaceQuestaTip(voto) {
+  return voto >= soglia && 'Si' || 'No';
 }
               </code>
             </pre>
@@ -308,8 +308,8 @@ function esempioDiMerda(voto) {
 			<script>
 				var soglia = 6;
 
-				function esempioDiMerda(voto) {
-					return voto < soglia;
+				function tePiaceQuestaTip(voto) {
+					return voto >= soglia && 'Si' || 'No';
 				}
 			</script>
             <aside class="notes">
@@ -320,19 +320,19 @@ function esempioDiMerda(voto) {
           <section>
 					<pre>
 						<code class="hljs" data-trim >
-function esempioDiMerda(voto) {
+function tePiaceQuestaTip(voto) {
   var soglia = 6;
 
-  return voto < soglia;
+  return voto >= soglia && 'Si' || 'No';
 }
 
 //oppure
 var config = Object.freeze({
-  soglia: 2000000
+  soglia: 6
 });
 
-function esempioDiMerda(voto) {
-  return voto < config.soglia;
+function tePiaceQuestaTip(voto) {
+  return voto >= soglia && 'Si' || 'No';
 }
 						</code>
 					</pre>
