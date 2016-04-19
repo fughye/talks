@@ -607,7 +607,6 @@ var formatAddress = compose(
 
 				<section data-background="#2E6EBA">
 					<section>
-						<h3>E adesso concludiamo</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
@@ -647,7 +646,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 						</pre>
 					</section>
 					<section>
-						<h3>Usiamo curry e composition per il check e l'estrazione dei dati</h3>
+						<h3>Our building blocks for check the response and extract the data</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function validGeocodeResponse(results, status) {
@@ -659,17 +658,11 @@ var getProperty = curry(function (propName, obj) {
 });
 
 var first = getProperty(0);
-
-var getAddressComponents = compose(
-  getProperty('address_components'),
-  first,
-  validGeocodeResponse
-);
 							</code>
 						</pre>
 					</section>
 					<section>
-						<h3>Riduciamo!</h3>
+						<h3>Reduce the data!</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var reduce = require('lodash/collection/reduce');
@@ -697,7 +690,7 @@ function transformAddressComponents(addressComponents) {
 						</pre>
 					</section>
 					<section>
-						<h3>Componiamo</h3>
+						<h3>Compose</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var formatGeocodeResponse = compose(
@@ -725,7 +718,7 @@ var showAddress = curry(function(errorMessage, output, formattedData) {
 						</pre>
 					</section>
 					<section>
-						<h3>Il nostro geocoding</h3>
+						<h3>Our geocoding</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var geocode = curry(function (geocoder, output, address) {
@@ -740,7 +733,7 @@ var geocode = curry(function (geocoder, output, address) {
 						</pre>
 					</section>
 					<section>
-						<h3>Funziona, è manutenibile, è sicuro ed è testabile!</h3>
+						<h3>Is maintainable, secure and testable!</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function manageAddressGeocoding(input, output, button){
@@ -757,7 +750,7 @@ function manageAddressGeocoding(input, output, button){
 					</section>
 				</section>
 		  <section>
-			<h2>Ma quante cose ci sono di cui non vi ho parlato!</h2>
+			<h3>The time is over, but there are so many other things!</h3>
 			<ul>
 				<li>Memoizing</li>
 				<li>Immutability</li>
