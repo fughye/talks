@@ -60,10 +60,10 @@
 						<span>Guido D'Orsi</span>
 					</p>
 					<p class="fragment" data-fragment-index="1">
-						<img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
+						<img src="df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
 					</p>
 					<p class="fragment" data-fragment-index="2">
-						<img src="df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
+						<img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
 					</p>
 
 					<aside class="notes">
@@ -79,9 +79,9 @@
 				</section>
 
 				<section>
-					<h2>Oggi vi parlerò di:</h2>
+					<h2>Today's Agenda:</h2>
 					<p>
-						Programmazione funzionale con Javascript!
+						Functional programming with Javascript
 					</p>
 					<ul>
 						<li>First class functions</li>
@@ -196,20 +196,19 @@ Geocoder.prototype.showAddress = function () {
 							</code>
 						</pre>
 					</section>
-				</section>
-
-				<section>
-					<h2>Google Maps Geocoding</h2>
-					<div>
-						<input id="shitty-query-input" disabled="disabled" autofocus>
-						<input id="shitty-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
-						<div id="shitty-geocode-result"></div>
-					</div>
+                    <section>
+                        <h2>Google Maps Geocoding</h2>
+                        <div>
+                            <input id="shitty-query-input" disabled="disabled" autofocus>
+                            <input id="shitty-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
+                            <div id="shitty-geocode-result"></div>
+                        </div>
+                    </section>
 				</section>
 
 				<section>
 					<h2>First class functions</h2>
-					<h3>Anche le funzioni possono viaggiare in prima classe!</h3>
+					<h3>Let's fly in first class!</h3>
                     <pre>
 					    <code class="hljs" data-trim>
 iNeedACallback(firstClass);
@@ -244,8 +243,7 @@ function iNeedArgs() {
           </section>
 
 			  <section data-background="#dddddd">
-				<h2>Pure functions</h2>
-				<h3>La felicità di sentirsi puri!</h3>
+				<h2>Pure happiness with pure functions</h2>
 
 				<aside class="notes">
 					Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
@@ -276,13 +274,12 @@ function iNeedArgs() {
 				</section>
 
 				<section data-background="#dddddd">
-					<h2>Esempi di side effects:</h2>
+					<h2>Side effects may include, but are not limited to:</h2>
 					<ul>
-						<li>Mutazioni di oggetti</li>
-						<li>Effettuare chiamate http</li>
-						<li>Scrivere dei log</li>
-						<li>Lanciare una query sul DOM</li>
-						<li>Altro ancora...</li>
+						<li>Mutations on objects</li>
+						<li>Make http calls</li>
+						<li>Write logs</li>
+						<li>Query the dom</li>
 					</ul>
 
 					<aside class="notes">
@@ -298,19 +295,19 @@ function iNeedArgs() {
             <pre>
               <code class="hljs" data-trim >
 //impure
-var soglia = 6;
+var goodEnaugh = 6;
 
-function tePiaceQuestaTip(voto) {
-  return voto >= soglia && 'Si' || 'No';
+function doYouLikeThisTip(vote) {
+  return vote >= goodEnaugh && 'Yes' || 'No';
 }
               </code>
             </pre>
 
 			<script>
-				var soglia = 6;
+				var goodEnaugh = 6;
 
-				function tePiaceQuestaTip(voto) {
-					return voto >= soglia && 'Si' || 'No';
+				function doYouLikeThisTip(vote) {
+					return vote >= goodEnaugh && 'Yes' || 'No';
 				}
 			</script>
             <aside class="notes">
@@ -321,19 +318,19 @@ function tePiaceQuestaTip(voto) {
           <section>
 					<pre>
 						<code class="hljs" data-trim >
-function tePiaceQuestaTip(voto) {
-  var soglia = 6;
+function doYouLikeThisTip(voto) {
+  var goodEnaugh = 6;
 
-  return voto >= soglia && 'Si' || 'No';
+  return voto >= goodEnaugh && 'Si' || 'No';
 }
 
 //oppure
 var config = Object.freeze({
-  soglia: 6
+  goodEnaugh: 6
 });
 
-function tePiaceQuestaTip(voto) {
-  return voto >= config.soglia && 'Si' || 'No';
+function doYouLikeThisTip(v) {
+  return vote >= config.goodEnaugh && 'Yes' || 'No';
 }
 						</code>
 					</pre>
@@ -348,8 +345,7 @@ function tePiaceQuestaTip(voto) {
 				<section data-background="#dddddd">
 					<section>
             <h3>
-              Proviamo a portare un pò di purezza
-              nel nostro modulo
+              Let's bring some purity to our module
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
@@ -373,10 +369,10 @@ Geocoder.prototype.showAddress = function () {
             </h3>
             <pre>
 							<code class="hljs" data-trim>
-//Trasforma locationData in una stringa formattata
+//Transform locationData in a formatted string
 function formatAddress(locationData) {}
 
-//Mostra la stringa formattata nel nostro elemento di output
+//Show the formatted string in the output element
 function showAddress(output, formattedData) {}
 							</code>
 						</pre>
@@ -402,7 +398,7 @@ function formatAddress(locationData) {
 
 					<section>
             <h3>
-              Almeno abbiamo circoscritto il codice 'impuro'
+				At least we have circumscribed the 'impure' code
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
@@ -415,13 +411,11 @@ function showAddress(output, formattedData) {
 
 					<section>
             <h3>
-              Se proprio vogliamo...
+              But if we want...
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
-//Qui manteniamo ancora la purezza
 function showAddress(output, formattedData) {
-  //Anche se qualcuno il lavoro sporco lo deve ancora fare
   return function() {
     output.textContent = formattedData;
   };
@@ -429,26 +423,6 @@ function showAddress(output, formattedData) {
 							</code>
 						</pre>
 					</section>
-
-
-					<aside class="notes">
-						Che ci abbiamo guadagnato?
-
-						showAddress prima aveva due responsabilità, era scocciante da testare con riusabilità zero.
-						La nuova versione si testa facilmente, non è legata al nostro vecchio oggetto
-						e possiamo farci quello che ci pare (caching).
-					</aside>
-				</section>
-
-				<section data-background="#dddddd">
-					<h2>
-						Il vantaggio che abbiamo è chiaro:
-				    </h2>
-					<ul>
-						<li>Prevedibilità</li>
-						<li>Riusabilità</li>
-						<li>Testabilità</li>
-					</ul>
 				</section>
 
 				<section data-background="#388E3C">
@@ -476,7 +450,7 @@ increment(10);
 				</section>
 
 				<section data-background="#388E3C">
-          <h3>Currying con lodash</h3>
+          <h3>Currying can be done with a curry function...</h3>
 					<pre>
 						<code class="hljs" data-trim>
 var curry = require('lodash/curry');
@@ -494,7 +468,7 @@ joinWithComma(['RM', 'Rome']);
 				</section>
 
 				<section data-background="#388E3C">
-          <h3>Currying con bind</h3>
+          <h3>...or with bind!</h3>
 					<pre>
 						<code class="hljs" data-trim>
 function join(glue, array) {
@@ -514,7 +488,7 @@ joinWithComma(['RM', 'Rome']);
 
 				<section data-background="#388E3C">
 					<section>
-						<h3>Torniamo al nostro esempio</h3>
+						<h3>Coming back to our module...</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -533,7 +507,7 @@ function formatAddress(locationData) {
 
 					</section>
           <section>
-			  <h3>E passiamo dalla concatenzaione al join</h3>
+			  <h3>To be more functional, we use list join instead of string concat</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function locationDataToArray(locationData){
@@ -554,7 +528,7 @@ function formatAddress(locationData) {
 						</pre>
 					</section>
 					<section>
-						<h3>Creiamo un filtro</h3>
+						<h3>And a filter function to clean the dirt</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var filter = curry(function (predicate, array) {
@@ -566,13 +540,7 @@ function isTruthy(value) {
 }
 
 var filterInvalid = filter(isTruthy);
-							</code>
-						</pre>
-					</section>
-					<section>
-						<h3>E lo applichiamo alla lista</h3>
-						<pre>
-							<code class="hljs" data-trim>
+
 function formatAddress(locationData) {
   return joinWithComma(
     filterInvalid(
@@ -583,8 +551,7 @@ function formatAddress(locationData) {
 							</code>
 						</pre>
 					</section>
-        </section>
-
+                </section>
 				<section data-background="#2E6EBA">
 					<h2>Coding by composing</h2>
           <pre>
@@ -599,7 +566,7 @@ function compose(f, g) {
 				</section>
 
 				<section  data-background="#2E6EBA">
-					<h2>Meglio no?</h2>
+					<h3>Composed version is better!</h3>
           <pre>
 							<code class="hljs" data-trim>
 function formatAddress (locationData) {
@@ -609,6 +576,8 @@ function formatAddress (locationData) {
     )
   );
 }
+
+var compose = require('lodash/flowRight');
 
 var formatAddress = compose(
   join(', '),
@@ -621,8 +590,8 @@ var formatAddress = compose(
 
 				<section data-background="#2E6EBA">
 					<section>
-						<h3>E adesso concludiamo</h3>
-						<pre>
+						<h3>And now convert the rest!</h3>
+                        <pre>
 							<code class="hljs small-font" data-trim>
 Geocoder.prototype.handleGeocodeResult = function (results, status) {
   var locationData = {},
@@ -661,29 +630,17 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
 						</pre>
 					</section>
 					<section>
-						<h3>Usiamo curry e composition per il check e l'estrazione dei dati</h3>
+						<h3>Status check!</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function validGeocodeResponse(results, status) {
   return status == google.maps.GeocoderStatus.OK && results;
 }
-
-var getProperty = curry(function (propName, obj) {
-  return obj && obj[propName];
-});
-
-var first = getProperty(0);
-
-var getAddressComponents = compose(
-  getProperty('address_components'),
-  first,
-  validGeocodeResponse
-);
 							</code>
 						</pre>
 					</section>
 					<section>
-						<h3>Riduciamo!</h3>
+						<h3>Reduce the data!</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var reduce = require('lodash/collection/reduce');
@@ -695,8 +652,7 @@ function transformAddressComponents(addressComponents) {
         res.province = component.short_name;
         break;
       case 'administrative_area_level_3':
-        res.city = component.long_name;				<li></li>
-
+        res.city = component.long_name;
         break;
       case 'route':
         res.route = component.long_name;
@@ -712,9 +668,16 @@ function transformAddressComponents(addressComponents) {
 						</pre>
 					</section>
 					<section>
-						<h3>Componiamo</h3>
+						<h3>And like composing a melody!</h3>
 						<pre>
 							<code class="hljs" data-trim>
+
+var getProperty = curry(function (propName, obj) {
+  return obj && obj[propName];
+});
+
+var first = getProperty(0);
+
 var formatGeocodeResponse = compose(
   formatAddress,
   transformAddressComponents,
@@ -726,7 +689,7 @@ var formatGeocodeResponse = compose(
 						</pre>
 					</section>
 					<section>
-						<h3>E anche se non è tutto puro</h3>
+						<h3>Even if not everything is pure</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var showAddress = curry(function(errorMessage, output, formattedData) {
@@ -740,7 +703,7 @@ var showAddress = curry(function(errorMessage, output, formattedData) {
 						</pre>
 					</section>
 					<section>
-						<h3>Il nostro geocoding</h3>
+						<h3>Our functional geocoding</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var geocode = curry(function (geocoder, output, address) {
@@ -755,7 +718,12 @@ var geocode = curry(function (geocoder, output, address) {
 						</pre>
 					</section>
 					<section>
-						<h3>Funziona, è manutenibile, è sicuro ed è testabile!</h3>
+						<h3>Is here!</h3>
+                        <div>
+                            <input id="functional-query-input" disabled="disabled" autofocus>
+                            <input id="functional-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
+                            <div id="functional-geocode-result"></div>
+                        </div>
 						<pre>
 							<code class="hljs" data-trim>
 function manageAddressGeocoding(input, output, button){
@@ -772,13 +740,16 @@ function manageAddressGeocoding(input, output, button){
 					</section>
 				</section>
 		  <section>
-			<h2>Ma quante cose ci sono di cui non vi ho parlato!</h2>
+			<h3>The time is over, but there are so many other things!</h3>
 			<ul>
 				<li>Memoizing</li>
 				<li>Immutability</li>
 				<li>Functors</li>
 			</ul>
 		  </section>
+          <section>
+              <h1>Questions?</h1>
+          </section>
           <section>
             <img src="conclusion.jpg">
           </section>
@@ -814,7 +785,7 @@ function manageAddressGeocoding(input, output, button){
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;client=gme-addictive&amp;channel=geocoder-tool&amp;signed_in=true&amp;libraries=places" async></script>
 		<script src="node_modules/ramda/dist/ramda.js"></script>
-		<!--<script src="js/shitty-geocoder.js" async></script>-->
+		<script src="js/shitty-geocoder.js" async></script>
     <script src="js/functional-geocoder.js" async></script>
 	</body>
 </html>
