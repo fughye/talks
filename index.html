@@ -93,15 +93,13 @@
 
 				<section>
 					<section>
-							<h2>Il nostro caso d'uso</h2>
+							<h2>Our case study</h2>
 							<h3>Google maps geocoding</h3>
 							<p>
-							  Immaginiamo di dover sviluppare un componente
-							  che dato un indirizzo inserito dall'utente
-							  ne verifica l'esistenza e mostra il risultato geolocalizzato
-							  formattato con:
+								Let's imagine develping a component that geocode
+								an address and show the result with this pattern:
 							  <p>
-								Provincia, Città, Indirizzo, Numero civico
+								Province, City, Route, Route number
 							  </p>
 							</p>
 					</section>
@@ -365,7 +363,7 @@ Geocoder.prototype.showAddress = function () {
 
 					<section>
 						<h3>
-              Dividiamo un pò le responsabilità
+              How about splitting the responsibilities?
             </h3>
             <pre>
 							<code class="hljs" data-trim>
@@ -379,6 +377,9 @@ function showAddress(output, formattedData) {}
 					</section>
 
 					<section>
+						<h3>
+						  Now we can write a pure function
+						</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -398,7 +399,7 @@ function formatAddress(locationData) {
 
 					<section>
             <h3>
-				At least we have circumscribed the 'impure' code
+				    And isolate the 'impure' code
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
@@ -427,7 +428,6 @@ function showAddress(output, formattedData) {
 
 				<section data-background="#388E3C">
 					<h2>Currying</h2>
-
           <pre>
 							<code class="hljs" data-trim>
 curry(function add(a, b) {
@@ -668,7 +668,7 @@ function transformAddressComponents(addressComponents) {
 						</pre>
 					</section>
 					<section>
-						<h3>And like composing a melody!</h3>
+						<h3>And like composing a melody...</h3>
 						<pre>
 							<code class="hljs" data-trim>
 
@@ -689,7 +689,7 @@ var formatGeocodeResponse = compose(
 						</pre>
 					</section>
 					<section>
-						<h3>Even if not everything is pure</h3>
+						<h3>...even if not everything is pure...</h3>
 						<pre>
 							<code class="hljs small-font" data-trim>
 var showAddress = curry(function(errorMessage, output, formattedData) {
@@ -703,7 +703,7 @@ var showAddress = curry(function(errorMessage, output, formattedData) {
 						</pre>
 					</section>
 					<section>
-						<h3>Our functional geocoding</h3>
+						<h3>...Our functional geocoding...</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var geocode = curry(function (geocoder, output, address) {
@@ -718,7 +718,7 @@ var geocode = curry(function (geocoder, output, address) {
 						</pre>
 					</section>
 					<section>
-						<h3>Is here!</h3>
+						<h3>...IS HERE!</h3>
                         <div>
                             <input id="functional-query-input" disabled="disabled" autofocus>
                             <input id="functional-geocode-button" type="button" value="Geocode"  disabled="disabled"/>
