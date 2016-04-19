@@ -60,10 +60,10 @@
 						<span>Guido D'Orsi</span>
 					</p>
 					<p class="fragment" data-fragment-index="1">
-						<img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
+						<img src="df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
 					</p>
 					<p class="fragment" data-fragment-index="2">
-						<img src="df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
+						<img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
 					</p>
 
 					<aside class="notes">
@@ -79,9 +79,9 @@
 				</section>
 
 				<section>
-					<h2>Oggi vi parlerò di:</h2>
+					<h2>Agenda:</h2>
 					<p>
-						Programmazione funzionale con Javascript!
+						Functional programming with Javascript
 					</p>
 					<ul>
 						<li>First class functions</li>
@@ -209,7 +209,7 @@ Geocoder.prototype.showAddress = function () {
 
 				<section>
 					<h2>First class functions</h2>
-					<h3>Anche le funzioni possono viaggiare in prima classe!</h3>
+					<h3>Let's fly in first class!</h3>
                     <pre>
 					    <code class="hljs" data-trim>
 iNeedACallback(firstClass);
@@ -244,8 +244,7 @@ function iNeedArgs() {
           </section>
 
 			  <section data-background="#dddddd">
-				<h2>Pure functions</h2>
-				<h3>La felicità di sentirsi puri!</h3>
+				<h2>Pure happiness with pure functions</h2>
 
 				<aside class="notes">
 					Si dice funzone pura, una funzione che dato un determinato input, ritorna sempre lo stesso output e non ha nessun side-effect osservabile.
@@ -276,13 +275,12 @@ function iNeedArgs() {
 				</section>
 
 				<section data-background="#dddddd">
-					<h2>Esempi di side effects:</h2>
+					<h2>Side effects may include, but are not limited to:</h2>
 					<ul>
-						<li>Mutazioni di oggetti</li>
-						<li>Effettuare chiamate http</li>
-						<li>Scrivere dei log</li>
-						<li>Lanciare una query sul DOM</li>
-						<li>Altro ancora...</li>
+						<li>Mutations on objects</li>
+						<li>Make http calls</li>
+						<li>Write logs</li>
+						<li>Query the dom</li>
 					</ul>
 
 					<aside class="notes">
@@ -298,19 +296,19 @@ function iNeedArgs() {
             <pre>
               <code class="hljs" data-trim >
 //impure
-var soglia = 6;
+var goodEnaugh = 6;
 
-function tePiaceQuestaTip(voto) {
-  return voto >= soglia && 'Si' || 'No';
+function doYouLikeThisTip(vote) {
+  return vote >= goodEnaugh && 'Yes' || 'No';
 }
               </code>
             </pre>
 
 			<script>
-				var soglia = 6;
+				var goodEnaugh = 6;
 
-				function tePiaceQuestaTip(voto) {
-					return voto >= soglia && 'Si' || 'No';
+				function doYouLikeThisTip(vote) {
+					return vote >= goodEnaugh && 'Yes' || 'No';
 				}
 			</script>
             <aside class="notes">
@@ -321,19 +319,19 @@ function tePiaceQuestaTip(voto) {
           <section>
 					<pre>
 						<code class="hljs" data-trim >
-function tePiaceQuestaTip(voto) {
-  var soglia = 6;
+function doYouLikeThisTip(voto) {
+  var goodEnaugh = 6;
 
-  return voto >= soglia && 'Si' || 'No';
+  return voto >= goodEnaugh && 'Si' || 'No';
 }
 
 //oppure
 var config = Object.freeze({
-  soglia: 6
+  goodEnaugh: 6
 });
 
-function tePiaceQuestaTip(voto) {
-  return voto >= config.soglia && 'Si' || 'No';
+function doYouLikeThisTip(v) {
+  return vote >= config.goodEnaugh && 'Yes' || 'No';
 }
 						</code>
 					</pre>
@@ -348,8 +346,7 @@ function tePiaceQuestaTip(voto) {
 				<section data-background="#dddddd">
 					<section>
             <h3>
-              Proviamo a portare un pò di purezza
-              nel nostro modulo
+              Let's bring some purity to our module
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
@@ -373,10 +370,10 @@ Geocoder.prototype.showAddress = function () {
             </h3>
             <pre>
 							<code class="hljs" data-trim>
-//Trasforma locationData in una stringa formattata
+//Transform locationData in a formatted string
 function formatAddress(locationData) {}
 
-//Mostra la stringa formattata nel nostro elemento di output
+//Show the formatted string in the output element
 function showAddress(output, formattedData) {}
 							</code>
 						</pre>
@@ -402,7 +399,7 @@ function formatAddress(locationData) {
 
 					<section>
             <h3>
-              Almeno abbiamo circoscritto il codice 'impuro'
+				At least we have circumscribed the 'impure' code
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
@@ -415,13 +412,11 @@ function showAddress(output, formattedData) {
 
 					<section>
             <h3>
-              Se proprio vogliamo...
+              But if we want...
             </h3>
 						<pre>
 							<code class="hljs" data-trim>
-//Qui manteniamo ancora la purezza
 function showAddress(output, formattedData) {
-  //Anche se qualcuno il lavoro sporco lo deve ancora fare
   return function() {
     output.textContent = formattedData;
   };
@@ -429,25 +424,16 @@ function showAddress(output, formattedData) {
 							</code>
 						</pre>
 					</section>
-
-
-					<aside class="notes">
-						Che ci abbiamo guadagnato?
-
-						showAddress prima aveva due responsabilità, era scocciante da testare con riusabilità zero.
-						La nuova versione si testa facilmente, non è legata al nostro vecchio oggetto
-						e possiamo farci quello che ci pare (caching).
-					</aside>
 				</section>
 
 				<section data-background="#dddddd">
 					<h2>
-						Il vantaggio che abbiamo è chiaro:
+						The gain is clear:
 				    </h2>
 					<ul>
-						<li>Prevedibilità</li>
-						<li>Riusabilità</li>
-						<li>Testabilità</li>
+						<li>Predicability</li>
+						<li>Reusability</li>
+						<li>Testability</li>
 					</ul>
 				</section>
 
@@ -476,7 +462,7 @@ increment(10);
 				</section>
 
 				<section data-background="#388E3C">
-          <h3>Currying con lodash</h3>
+          <h3>Currying with lodash</h3>
 					<pre>
 						<code class="hljs" data-trim>
 var curry = require('lodash/curry');
@@ -494,7 +480,7 @@ joinWithComma(['RM', 'Rome']);
 				</section>
 
 				<section data-background="#388E3C">
-          <h3>Currying con bind</h3>
+          <h3>Currying with bind</h3>
 					<pre>
 						<code class="hljs" data-trim>
 function join(glue, array) {
@@ -514,7 +500,7 @@ joinWithComma(['RM', 'Rome']);
 
 				<section data-background="#388E3C">
 					<section>
-						<h3>Torniamo al nostro esempio</h3>
+						<h3>Coming back to our module...</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -533,7 +519,7 @@ function formatAddress(locationData) {
 
 					</section>
           <section>
-			  <h3>E passiamo dalla concatenzaione al join</h3>
+			  <h3>String concat -> join</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function locationDataToArray(locationData){
@@ -554,7 +540,7 @@ function formatAddress(locationData) {
 						</pre>
 					</section>
 					<section>
-						<h3>Creiamo un filtro</h3>
+						<h3>For cleanling the list we create a filter function</h3>
 						<pre>
 							<code class="hljs" data-trim>
 var filter = curry(function (predicate, array) {
@@ -570,7 +556,7 @@ var filterInvalid = filter(isTruthy);
 						</pre>
 					</section>
 					<section>
-						<h3>E lo applichiamo alla lista</h3>
+						<h3>And applying it to formatAddress</h3>
 						<pre>
 							<code class="hljs" data-trim>
 function formatAddress(locationData) {
@@ -599,7 +585,7 @@ function compose(f, g) {
 				</section>
 
 				<section  data-background="#2E6EBA">
-					<h2>Meglio no?</h2>
+					<h2>Ahh, better!</h2>
           <pre>
 							<code class="hljs" data-trim>
 function formatAddress (locationData) {
@@ -695,8 +681,7 @@ function transformAddressComponents(addressComponents) {
         res.province = component.short_name;
         break;
       case 'administrative_area_level_3':
-        res.city = component.long_name;				<li></li>
-
+        res.city = component.long_name;
         break;
       case 'route':
         res.route = component.long_name;
