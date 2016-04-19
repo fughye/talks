@@ -96,9 +96,9 @@ function initializeFunctionalGeocoder(){
       button;
 
   if(window.google){
-    input = document.getElementById('shitty-query-input');
-    output = document.getElementById('shitty-geocode-result');
-    button = document.getElementById('shitty-geocode-button');
+    input = document.getElementById('functional-query-input');
+    output = document.getElementById('functional-geocode-result');
+    button = document.getElementById('functional-geocode-button');
 
     manageAddressGeocoding(
         input,
