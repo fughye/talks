@@ -63,7 +63,7 @@
 						<img src="df.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Retro games lover
 					</p>
 					<p class="fragment" data-fragment-index="2">
-						<img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;"> Front-end web developer @ Immobiliare.it
+						Frontend web developer @ ImmobiliareLabs <img src="immobiliare.png" style="margin: 0; background: transparent; border: none; vertical-align: middle; box-shadow: none;">
 					</p>
 
 					<aside class="notes">
@@ -79,7 +79,7 @@
 				</section>
 
 				<section>
-					<h2>Today's Agenda:</h2>
+					<h2>Agenda:</h2>
 					<p>
 						How to improve our Javascript modules with a functional approach.
 					</p>
@@ -145,11 +145,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
     var location = {},
         components, i, l;
 
-    if (
-        results &&
-        results.length > 0 &&
-        status == google.maps.GeocoderStatus.OK
-    ) {
+    if (results && results.length > 0 && status == google.maps.GeocoderStatus.OK) {
         components = results[0]['address_components'];
 
         for(i = 0, l = addressComponents.length; i < l; i++){
@@ -157,12 +153,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
                 case 'administrative_area_level_2':
                     location.province = components[i].short_name;
                     break;
-                case 'administrative_area_level_3':
-                    location.city = components[i].long_name;
-                    break;
-                case 'route':
-                    location.route = components[i].long_name;
-                    break;
+                ...
                 case 'street_number':
                     location.streetNumber = components[i].long_name;
                     break;
@@ -171,7 +162,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
         this.locationData = location;
         this.showAddress();
     } else {
-        alert('Inserisci un indirizzo valido!');
+        alert('Insert a valid address');
     }
 };
 							</code>
@@ -219,8 +210,8 @@ iNeedACallback(firstClass);
 function iNeedArgs() {
   return Array.prototype.slice.call(arguments, 1);
 }
-
-//First class
+			  </code>
+			  <code class="hljs" data-trim>
 function firstClassSlice(array, from, to) {
   return Array.prototype.slice.call(array, from, to);
 }
@@ -313,8 +304,8 @@ function doYouLikeThisTip(voto) {
 
   return voto >= goodEnaugh && 'Si' || 'No';
 }
-
-//oppure
+</code>
+<code class="hljs" data-trim >
 var config = Object.freeze({
   goodEnaugh: 6
 });
@@ -568,7 +559,8 @@ function formatAddress (locationData) {
     )
   );
 }
-
+							</code>
+							<code class="hljs" data-trim>
 var compose = require('lodash/flowRight');
 
 var formatAddress = compose(
@@ -589,11 +581,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
   var locationData = {},
     addressComponents, i, l;
 
-  if (
-    results &&
-    results.length > 0 &&
-    status == google.maps.GeocoderStatus.OK
-  ) {
+if (results && results.length > 0 && status == google.maps.GeocoderStatus.OK) {
     addressComponents = results[0]['address_components'];
 
     for(i = 0, l = addressComponents.length; i < l; i++){
@@ -601,12 +589,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
         case 'administrative_area_level_2':
           locationData.province = addressComponents[i].short_name;
           break;
-        case 'administrative_area_level_3':
-          locationData.city = addressComponents[i].long_name;
-          break;
-        case 'route':
-          locationData.route = addressComponents[i].long_name;
-          break;
+        ...
         case 'street_number':
           locationData.streetNumber = addressComponents[i].long_name;
           break;
@@ -615,7 +598,7 @@ Geocoder.prototype.handleGeocodeResult = function (results, status) {
     this.locationData = locationData;
     this.showAddress();
   } else {
-    alert('Inserisci un indirizzo valido!');
+    alert('Insert a valid address');
   }
 };
 							</code>
@@ -643,12 +626,7 @@ function transformAddressComponents(addressComponents) {
       case 'administrative_area_level_2':
         res.province = component.short_name;
         break;
-      case 'administrative_area_level_3':
-        res.city = component.long_name;
-        break;
-      case 'route':
-        res.route = component.long_name;
-        break;
+      ...
       case 'street_number':
         res.streetNumber = component.long_name;
         break;
@@ -669,7 +647,8 @@ var getProperty = curry(function (propName, obj) {
 });
 
 var first = getProperty(0);
-
+							</code>
+							<code class="hljs" data-trim>
 var formatGeocodeResponse = compose(
   formatAddress,
   transformAddressComponents,
@@ -702,7 +681,7 @@ var geocode = curry(function (geocoder, output, address) {
   geocoder.geocode({
         address: address
   }, compose(
-    showAddress('Inserisci un indirizzo valido!', output),
+    showAddress('Insert a valid address', output),
     formatGeocodeResponse
   ));
 })
